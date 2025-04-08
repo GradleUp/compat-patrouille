@@ -20,11 +20,11 @@ Configuring Java/Kotlin compatibility flags is a mundane task that comes with su
 * What is the difference between `sourceCompatibility` and `targetCompatibility`?
 * Should I use `release` instead?
 * What does `release` even mean on Android?
-* Why do I even need to configure Java compatibility if I only do Kotlin?
+* Why do I need to configure Java compatibility if I only do Kotlin?
 * How do I configure `release` with Kotlin?
 * Should I use `tasks.withType<KotlinCompile>` or `compilerOptions {}` or something else?
-* Is it "1.8" or "8" or "JavaVersion"?
-* Which `KotlinVersion` do I need to import?
+* Is it "1.8" or "8" or `JavaVersion.VERSION_1_8`?
+* Is it `org.jetbrains.kotlin.gradle.dsl.KotlinVersion` or `kotlin.KotlinVersion`?
 * And more...
 
 La Compat Patrouille handles all of that with just two simple functions!
