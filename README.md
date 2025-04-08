@@ -1,5 +1,5 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.compat.patrouille/module?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.compat.patrouille)
-[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.compat.patrouille/module?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.compat.patrouille/compat-patrouille-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.compat.patrouille)
+[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.compat.patrouille/compat-patrouille-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
 
 
 # 🐾 Compat-Patrouille 🐾
