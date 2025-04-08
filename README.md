@@ -18,7 +18,7 @@ Configuring Java/Kotlin compatibility flags is a mundane task that comes with su
 * Should I use `tasks.withType<KotlinCompile>` or `compilerOptions {}` or something else?
 * Is it "1.8" or "8" or "JavaVersion"?
 * Which `KotlinVersion` do I need to import?
-* ...
+* And more...
 
 La Compat Patrouille handles all of that with just two simple functions!
 
