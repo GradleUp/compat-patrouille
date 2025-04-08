@@ -1,0 +1,29 @@
+public abstract interface class compat/patrouille/CompatPatrouilleExtension {
+	public abstract fun java (I)V
+	public abstract fun kotlin (Ljava/lang/String;)V
+}
+
+public final class compat/patrouille/CompatPatrouillePlugin : org/gradle/api/Plugin {
+	public fun <init> ()V
+	public synthetic fun apply (Ljava/lang/Object;)V
+	public fun apply (Lorg/gradle/api/Project;)V
+}
+
+public final class compat/patrouille/CompatibilityKt {
+	public static final fun configureJavaCompatibility (Lorg/gradle/api/Project;I)V
+	public static final fun configureKotlinCompatibility (Lorg/gradle/api/Project;Ljava/lang/String;)V
+}
+
+public final class compat/patrouille/internal/Compatibility_kotlinKt {
+	public static final fun forEachCompilerOptions (Lorg/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension;Lkotlin/jvm/functions/Function2;)V
+}
+
+public final class compat/patrouille/internal/Project_androidKt {
+	public static final fun getAndroidExtension (Lorg/gradle/api/Project;)Lcom/android/build/api/dsl/CommonExtension;
+	public static final fun getAndroidExtensionOrNull (Lorg/gradle/api/Project;)Lcom/android/build/api/dsl/CommonExtension;
+}
+
+public final class compat/patrouille/internal/Project_kotlinKt {
+	public static final fun getKotlinExtension (Lorg/gradle/api/Project;)Lorg/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension;
+}
+

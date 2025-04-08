@@ -45,6 +45,20 @@ compatPatrouille {
 }
 ```
 
+If you have convention plugins, you can also use the Compat-Patrouille without all the plugin ceremony:
+
+```kotlin
+import compat.patrouille.configureJavaCompatibility
+import compat.patrouille.configureKotlinCompatibility
+
+class ConventionPlugin: Plugin<Project> {
+  override fun apply(target: Project) {
+    target.configureJavaCompatibility(17)
+    target.configureKotlinCompatibility("2.0.21")
+  }
+}
+```
+
 That's it, you can now keep on with your life.
 
 > [!NOTE]
