@@ -6,6 +6,8 @@
 
 The Compat-Patrouille Gradle plugin helps you configure your Java/Kotlin compatibility flags. 
 
+-----
+
 Configuring Java/Kotlin compatibility flags is a mundane task that comes with surprising amounts of questions:
 
 * What is the difference between `sourceCompatibility` and `targetCompatibility`?
@@ -18,17 +20,16 @@ Configuring Java/Kotlin compatibility flags is a mundane task that comes with su
 * Which `KotlinVersion` do I need to import?
 * ...
 
+La Compat Patrouille handles all of that with just two simple functions!
 
 ### Usage
 
 ```kotlin
 plugins {
   id("java")
-  // optional: Kotlin
-  id("org.jetbrains.kotlin.jvm").version("2.1.20")
-  // optional: Android
-  id("org.jetbrains.kotlin.android").version("2.1.20")
-  id("com.android.application").version("8.9.1")
+  // Add your Kotlin/Android plugins here
+  // Add the CompatPatrouille plugin
+  id("com.gradleup.compat.patrouille").version("0.0.0")
 }
 
 /*
@@ -37,7 +38,7 @@ plugins {
  * You can copy/pate it
  */
 compatPatrouille {
-  // Java takes an int
+  // Java takes an int for simplicity
   java(17)
   // Kotlin takes a string so you have more control of the patch release of the stdlib.
   // languageVersion/apiVersion are configured with the minor version only.
