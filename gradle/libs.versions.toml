@@ -1,0 +1,8 @@
+[libraries]
+gradle-api = "dev.gradleplugins:gradle-api:8.0"
+agp = "com.android.tools.build:gradle:8.2.0"
+kgp = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"
+
+[plugins]
+kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.1.20" }
+librarian = { id = "com.gradleup.librarian", version = "0.0.8-SNAPSHOT-b703634bb1858f471503e23d2c23d7aeae9d6120" }
