@@ -1,6 +1,8 @@
 package compat.patrouille.internal
 
 import compat.patrouille.CompatPatrouilleExtension
+import compat.patrouille.configureJavaCompatibility
+import compat.patrouille.configureKotlinCompatibility
 import org.gradle.api.Project
 
 internal abstract class CompatPatrouilleExtensionImpl(private val project: Project): CompatPatrouilleExtension {

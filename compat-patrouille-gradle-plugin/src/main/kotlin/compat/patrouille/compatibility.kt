@@ -1,12 +1,17 @@
-package compat.patrouille.internal
+package compat.patrouille
 
+import compat.patrouille.internal.androidJavaVersion
+import compat.patrouille.internal.configureKotlinJvmTarget
+import compat.patrouille.internal.forEachCompilerOptions
+import compat.patrouille.internal.hasAndroid
+import compat.patrouille.internal.kotlinExtensionOrNull
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 
-internal fun Project.configureJavaCompatibility(
+fun Project.configureJavaCompatibility(
     javaVersion: Int,
 ) {
     check (extensions.findByName("java") != null) {
@@ -15,7 +20,7 @@ internal fun Project.configureJavaCompatibility(
     configureJavaCompatibilityInternal(javaVersion.toJavaVersion())
 }
 
-internal fun Project.configureKotlinCompatibility(
+fun Project.configureKotlinCompatibility(
     version: String
 ) {
     val kotlin = kotlinExtensionOrNull

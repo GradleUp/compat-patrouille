@@ -1,5 +1,6 @@
 package compat.patrouille.internal
 
+import compat.patrouille.toInt
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
