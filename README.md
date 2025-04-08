@@ -69,8 +69,9 @@ class ConventionPlugin: Plugin<Project> {
 
 That's it, you can now keep on with your life.
 
-> [!NOTE]
-> Calling `CompatPatrouilleExtension.java()` or `CompatPatrouille.kotlin()` requires the java/kotlin/android to be applied (this plugin does not use `pluginManager.withId {}`). This is typically the case if you use the `plugins {}` block. But If you're applying your plugins programmatically, make sure to call `CompatPatrouilleExtension.java()` or `CompatPatrouille.kotlin()` only after all your plugins have been applied.
+### Note
+
+Calling `CompatPatrouilleExtension.java()` or `CompatPatrouille.kotlin()` requires the java/kotlin/android to be applied (this plugin does not use `pluginManager.withId {}`). This is typically the case if you use the `plugins {}` block. But If you're applying your plugins programmatically, make sure to call `CompatPatrouilleExtension.java()` or `CompatPatrouille.kotlin()` only after all your plugins have been applied.
 
 ### Requirements:
 
