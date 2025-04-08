@@ -1,0 +1,5 @@
+[libraries]
+
+[plugins]
+kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.0.21" }
+librarian = { id = "com.gradleup.librarian", version = "0.0.8-SNAPSHOT" }    

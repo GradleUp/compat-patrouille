@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <variables></variables>
+  <build-profile instance="doc">
+    <variables>
+      <noindex-content>true</noindex-content>
+      <download-title>GitHub</download-title>
+      <download-page>https://github.com/GradleUp/compat-patrouille/</download-page>
+      <showDownloadButton>true</showDownloadButton>
+      <enable-browser-edits>true</enable-browser-edits>
+      <browser-edits-url>https://github.com/GradleUp/compat-patrouille/edit/main/Writerside/</browser-edits-url>
+    </variables>
+  </build-profile>
+</buildprofiles>

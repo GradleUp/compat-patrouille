@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE vars SYSTEM "https://resources.jetbrains.com/writerside/1.0/vars.dtd">
+<vars>
+  <var name="product" value="Writerside" />
+  <var name="latest_version" instance="doc" value="0.0.0" type="string" />
+</vars>

@@ -1,0 +1,25 @@
+name: Tag and bump
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionToRelease:
+        description: 'The version to release'
+        required: true
+        type: string
+
+jobs:
+  tag-and-bump:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 #v4.1.7
+      - uses: gradleup/librarian/tag-and-bump@2cdb4fa8a36657aec1b52d2c5ec836f04713a80c #v0.0.4
+        with:
+          versionToRelease: ${{ inputs.versionToRelease }}
+      # Trigger a workflow manually because actions cannot trigger workflows to avoid endless loops
+      # https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs
+      - run: |
+          gh workflow run publish-release.yaml --ref v${{ inputs.versionToRelease }}
+    env:
+      GH_TOKEN: ${{ github.token }}
