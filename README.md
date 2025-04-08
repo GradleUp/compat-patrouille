@@ -4,8 +4,14 @@
 
 # 🐾 Compat-Patrouille 🐾
 
-The Compat-Patrouille Gradle plugin helps you configure your Java/Kotlin compatibility flags. 
+The Compat-Patrouille helps you configure your Java/Kotlin compatibility flags: 
 
+```kotlin
+compatPatrouille {
+  java(17)
+  kotlin("2.0.21")
+}
+```
 -----
 
 Configuring Java/Kotlin compatibility flags is a mundane task that comes with surprising amounts of questions:
