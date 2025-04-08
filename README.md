@@ -12,7 +12,8 @@ compatPatrouille {
   kotlin("2.0.21")
 }
 ```
------
+
+### Rationale
 
 Configuring Java/Kotlin compatibility flags is a mundane task that comes with surprising amounts of questions:
 
