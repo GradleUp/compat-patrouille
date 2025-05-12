@@ -8,8 +8,8 @@ The Compat-Patrouille helps you configure your Java/Kotlin compatibility flags:
 
 ```kotlin
 compatPatrouille {
-  java(17)
-  kotlin("2.0.21")
+  java(17) // build for Java 17, including source, target and api compatibility
+  kotlin("2.0.21") // build for kotlin 2.0.21, including language and api version
 }
 ```
 
