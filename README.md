@@ -49,7 +49,7 @@ plugins {
 /*
  * Configure all your Java/Kotlin targets with a single code block.
  * This code block works regardless of if you're using Kotlin/Android/KMP/etc...
- * You can copy/pate it
+ * You can copy/paste it
  */
 compatPatrouille {
   // Java takes an int for simplicity
