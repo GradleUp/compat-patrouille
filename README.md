@@ -33,9 +33,14 @@ La Compat Patrouille handles all of that with just two simple functions!
 
 ```kotlin
 plugins {
-  id("java")
   // Add your Kotlin/Android plugins here
-  // Add the CompatPatrouille plugin
+  id("java")
+  // or
+  id("org.jetbrains.kotlin.jvm")
+  // or
+  id("org.jetbrains.kotlin.multiplatform")
+  // etc...
+  // And add the CompatPatrouille plugin
   id("com.gradleup.compat.patrouille").version("0.0.0")
 }
 
