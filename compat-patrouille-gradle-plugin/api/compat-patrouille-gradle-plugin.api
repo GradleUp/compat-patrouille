@@ -1,4 +1,5 @@
 public abstract interface class compat/patrouille/CompatPatrouilleExtension {
+	public abstract fun checkApiDependencies ()V
 	public abstract fun java (I)V
 	public abstract fun kotlin (Ljava/lang/String;)V
 }
@@ -25,5 +26,6 @@ public final class compat/patrouille/internal/Project_androidKt {
 
 public final class compat/patrouille/internal/Project_kotlinKt {
 	public static final fun getKotlinExtension (Lorg/gradle/api/Project;)Lorg/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension;
+	public static final fun isKmp (Ljava/lang/Object;)Z
 }
 

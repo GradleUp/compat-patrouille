@@ -1,9 +1,16 @@
+[versions]
+gratatouille = "0.0.9"
+
 [libraries]
 gradle-api = "dev.gradleplugins:gradle-api:8.0"
 agp = "com.android.tools.build:gradle:8.2.0"
 kgp = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"
+gratatouille-runtime = {  module = "com.gradleup.gratatouille:gratatouille-runtime", version.ref = "gratatouille" }
+kotlinx-metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0"
 
 [plugins]
-kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.1.20" }
+kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.1.21" }
+ksp = { id = "com.google.devtools.ksp", version = "2.1.21-2.0.1" }
 librarian = { id = "com.gradleup.librarian", version = "0.0.8-SNAPSHOT-b703634bb1858f471503e23d2c23d7aeae9d6120" }
 compat-patrouille = { id = "com.gradleup.compat.patrouille", version = "0.0.0-SNAPSHOT-08185b86d960562682116f21e348d6a9bf0c63d6" }
+gratatouille = { id = "com.gradleup.gratatouille", version.ref = "gratatouille" }
