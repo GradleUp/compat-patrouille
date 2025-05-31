@@ -1,5 +1,5 @@
 [versions]
-gratatouille = "0.0.5"
+gratatouille = "0.0.9"
 
 [libraries]
 gradle-api = "dev.gradleplugins:gradle-api:8.0"
