@@ -9,3 +9,6 @@ pluginManagement {
 }
 
 include(":compat-patrouille-gradle-plugin")
+include(":compat-patrouille-tasks")
+
+includeBuild("../gratatouille")
