@@ -5,11 +5,13 @@ import gratatouille.GOutputFile
 import gratatouille.GTask
 import kotlinx.metadata.jvm.JvmMetadataVersion
 import kotlinx.metadata.jvm.KotlinModuleMetadata
+import kotlinx.metadata.jvm.UnstableMetadataApi
 import java.io.File
 import java.util.zip.ZipInputStream
 
+@OptIn(UnstableMetadataApi::class)
 @GTask
-fun checkApiDependencies(
+internal fun checkApiDependencies(
   compileClasspath: GClasspath,
   kotlinVersion: String,
   output: GOutputFile
