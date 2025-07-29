@@ -5,6 +5,7 @@ plugins {
   id("org.jetbrains.kotlin.jvm")
   id("java-gradle-plugin")
   id("com.gradleup.compat.patrouille")
+  id("com.gradleup.gratatouille")
 }
 
 Librarian.module(project)
@@ -13,6 +14,7 @@ dependencies {
   compileOnly(libs.gradle.api)
   compileOnly(libs.agp)
   compileOnly(libs.kgp)
+  gratatouille(project(":compat-patrouille-tasks"))
 }
 
 configurations.getByName("api").dependencies.removeIf {
@@ -33,3 +35,4 @@ gradlePlugin {
     }
   }
 }
+
