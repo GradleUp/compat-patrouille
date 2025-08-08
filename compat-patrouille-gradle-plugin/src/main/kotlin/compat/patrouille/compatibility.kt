@@ -5,9 +5,13 @@ import compat.patrouille.internal.configureKotlinJvmTarget
 import compat.patrouille.internal.forEachCompilerOptions
 import compat.patrouille.internal.hasAndroid
 import compat.patrouille.internal.kotlinExtensionOrNull
+import java.lang.reflect.Method
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompilerOptions
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 
@@ -20,6 +24,24 @@ fun Project.configureJavaCompatibility(
   configureJavaCompatibilityInternal(javaVersion.toJavaVersion())
 }
 
+private var method: Method? = null
+private var firstTime = true
+
+@Synchronized
+private fun compilerOptionsMethod(): Method? {
+  if (firstTime) {
+    firstTime = false
+
+    method = try {
+      KotlinMultiplatformExtension::class.java.getMethod("getCompilerOptions")
+    } catch (_: NoSuchMethodException) {
+      null
+    }
+  }
+
+  return method
+}
+
 fun Project.configureKotlinCompatibility(
   version: String,
 ) {
@@ -28,9 +50,37 @@ fun Project.configureKotlinCompatibility(
     "CompatPatrouille: cannot configure Kotlin compatibility since the Kotlin plugin is not applied."
   }
   val kotlinVersion = KotlinVersion.fromVersion(version.substringBeforeLast("."))
-  kotlin.forEachCompilerOptions {
-    apiVersion.set(kotlinVersion)
-    languageVersion.set(kotlinVersion)
+  when (kotlin) {
+    is KotlinJvmProjectExtension -> {
+      kotlin.compilerOptions {
+        apiVersion.set(kotlinVersion)
+        languageVersion.set(kotlinVersion)
+      }
+    }
+    is KotlinMultiplatformExtension -> {
+      val compilerOptions = compilerOptionsMethod()
+      if (compilerOptions != null) {
+        (compilerOptions.invoke(kotlin) as KotlinCommonCompilerOptions).apply {
+          /**
+           * Kotlin 2.0+: it's important to set the version at the extension level for the shared source sets
+           * like `commonMain` and `commonTest`.
+           *
+           * See https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options
+           */
+          apiVersion.set(kotlinVersion)
+          languageVersion.set(kotlinVersion)
+        }
+      } else {
+        /**
+         * Kotlin <2.0: not sure how we do the same thing. The IDE won't be able to get the proper information in
+         * common source sets, but the final binaries should still target the correct version.
+         */
+        kotlin.forEachCompilerOptions {
+          apiVersion.set(kotlinVersion)
+          languageVersion.set(kotlinVersion)
+        }
+      }
+    }
   }
 
   kotlin.coreLibrariesVersion = version
