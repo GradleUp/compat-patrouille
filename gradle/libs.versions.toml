@@ -9,8 +9,8 @@ gratatouille-runtime = {  module = "com.gradleup.gratatouille:gratatouille-runti
 kotlinx-metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0"
 
 [plugins]
-kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.1.21" }
-ksp = { id = "com.google.devtools.ksp", version = "2.1.21-2.0.1" }
-librarian = { id = "com.gradleup.librarian", version = "0.0.8-SNAPSHOT-b703634bb1858f471503e23d2c23d7aeae9d6120" }
+kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.2.0" }
+ksp = { id = "com.google.devtools.ksp", version = "2.2.0-2.0.2" }
+librarian = { id = "com.gradleup.librarian", version = "0.0.11-SNAPSHOT-7ee68c4b1011bc028bf6ce5b7e1497d1db7cd9d0" }
 compat-patrouille = { id = "com.gradleup.compat.patrouille", version = "0.0.0-SNAPSHOT-08185b86d960562682116f21e348d6a9bf0c63d6" }
 gratatouille = { id = "com.gradleup.gratatouille", version.ref = "gratatouille" }
