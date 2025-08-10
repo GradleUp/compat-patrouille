@@ -82,7 +82,7 @@ Calling `CompatPatrouilleExtension.java()` or `CompatPatrouille.kotlin()` requir
 
 ### Requirements:
 
-* Gradle 8+
+* Gradle 8.3+
 * For Kotlin: Kotlin Gradle Plugin 1.9.0+
 * For Android: Android Gradle Plugin 8.2.0+
 
