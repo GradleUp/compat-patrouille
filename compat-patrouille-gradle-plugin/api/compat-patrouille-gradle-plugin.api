@@ -1,5 +1,5 @@
 public abstract interface class compat/patrouille/CompatPatrouilleExtension {
-	public abstract fun checkApiDependencies ()V
+	public abstract fun checkApiDependencies (Z)V
 	public abstract fun java (I)V
 	public abstract fun kotlin (Ljava/lang/String;)V
 }
