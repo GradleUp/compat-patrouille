@@ -1,5 +1,6 @@
 import cast.cast
 import com.nfeld.jsonpathkt.kotlinx.resolvePathOrNull
+import compat.patrouille.CompatPatrouilleExtension
 import java.util.zip.ZipInputStream
 import kotlinx.metadata.jvm.KotlinModuleMetadata
 import kotlinx.metadata.jvm.UnstableMetadataApi
@@ -12,7 +13,6 @@ import org.objectweb.asm.Opcodes
 
 plugins {
   id("org.jetbrains.kotlin.jvm").version("1.9.0")
-  id("com.gradleup.compat.patrouille")
   id("maven-publish")
 }
 
@@ -23,13 +23,16 @@ buildscript {
     classpath("net.mbonnin.cast:cast:0.0.1")
     classpath("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0")
     classpath("org.ow2.asm:asm:9.8")
+    classpath("com.gradleup.compat.patrouille:compat-patrouille-gradle-plugin")
   }
 }
 
-compatPatrouille {
+pluginManager.apply("com.gradleup.compat.patrouille")
+extensions.getByType(CompatPatrouilleExtension::class.java).apply {
   java(11)
   kotlin("1.9.0")
 }
+
 abstract class VerifyCompatibility : DefaultTask() {
   @get:InputFiles
   abstract val m2Dir: ConfigurableFileCollection

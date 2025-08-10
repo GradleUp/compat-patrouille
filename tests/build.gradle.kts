@@ -1,5 +1,10 @@
 plugins {
   alias(libs.plugins.kgp).apply(false)
-  alias(libs.plugins.compat.patrouille).apply(false)
 }
+buildscript {
+  dependencies {
+    classpath("com.gradleup.compat.patrouille:compat-patrouille-gradle-plugin")
+  }
+}
+
 
