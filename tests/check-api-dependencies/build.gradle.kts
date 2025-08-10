@@ -10,6 +10,7 @@ compatPatrouille {
 }
 
 dependencies {
+  // Uncomment to make `compatPatrouilleCheckApiDependencies` fail because incompatible metadata was exposed to consumers.
 //  api("org.jetbrains.kotlin:kotlin-stdlib:2.1.21")
   api(libs.kotlinx.metadata)
 }

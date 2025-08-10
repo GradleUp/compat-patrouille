@@ -1,13 +1,12 @@
 import cast.cast
 import com.nfeld.jsonpathkt.kotlinx.resolvePathOrNull
 import java.util.zip.ZipInputStream
-import kotlin.math.min
 import kotlinx.metadata.jvm.KotlinModuleMetadata
 import kotlinx.metadata.jvm.UnstableMetadataApi
-import org.objectweb.asm.ClassReader
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonPrimitive
+import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.Opcodes
 
