@@ -34,8 +34,23 @@ interface CompatPatrouilleExtension {
    * the specified kotlin version.
    * This is version n + 1 thanks to kotlinc n + 1 forward compatibility.
    *
-   * Defaults to false.
+   * @param severity what to do when a dependency is found to be incompatible.
+   * Defaults to [Severity.IGNORE].
    */
-  fun checkApiDependencies(check: Boolean)
+  fun checkApiDependencies(severity: Severity)
+
+  /**
+   * If [check] is true, registers a `compatPatrouilleCheckRuntimeDependencies` task that walks all the runtime dependencies
+   * and checks that `kotlin-stdlib` is not upgraded to a version > n
+   *
+   * @param severity what to do when a dependency is found to be incompatible.
+   * Defaults to [Severity.IGNORE].
+   */
+  fun checkRuntimeDependencies(severity: Severity)
 }
 
+enum class Severity {
+  IGNORE,
+  WARNING,
+  ERROR
+}
