@@ -29,11 +29,13 @@ interface CompatPatrouilleExtension {
   fun kotlin(version: String)
 
   /**
-   * Registers a `compatPatrouilleCheckApiDependencies` task that walks all the api dependencies
+   * If [check] is true, registers a `compatPatrouilleCheckApiDependencies` task that walks all the api dependencies
    * and checks that the metadata version in the `META-INF/${lib}.kotlin_module` file is compatible with
    * the specified kotlin version.
    * This is version n + 1 thanks to kotlinc n + 1 forward compatibility.
+   *
+   * Defaults to false.
    */
-  fun checkApiDependencies()
+  fun checkApiDependencies(check: Boolean)
 }
 

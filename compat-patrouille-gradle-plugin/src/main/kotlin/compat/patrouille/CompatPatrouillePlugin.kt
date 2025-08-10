@@ -5,7 +5,7 @@ import gratatouille.wiring.GPlugin
 import org.gradle.api.Project
 
 @GPlugin(id = "com.gradleup.compat.patrouille")
-fun plugin(target: Project) {
+fun compatPatrouillePlugin(target: Project) {
   target.extensions.create(
     CompatPatrouilleExtension::class.java,
     "compatPatrouille",

@@ -6,7 +6,7 @@ plugins {
 compatPatrouille {
   java(11)
   kotlin("1.9.0")
-  checkApiDependencies()
+  checkApiDependencies(true)
 }
 
 dependencies {
