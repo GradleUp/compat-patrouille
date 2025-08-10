@@ -23,32 +23,34 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
     project.configureKotlinCompatibility(version)
   }
 
-  override fun checkApiDependencies() {
-    val kotlin = project.extensions.findByName("kotlin")
-    val isKmp = if (kotlin != null) {
-      isKmp(kotlin)
-    } else {
-      false
-    }
-    val apiElementsConfigurationName = if (isKmp) {
-      "jvmApiElements"
-    } else {
-      "apiElements"
-    }
-    val configuration = project.configurations.create("compatPatrouilleCheck") {
-      it.isCanBeConsumed = false
-      it.isCanBeResolved = true
-      it.isVisible = false
-    }
-    configuration.extendsFrom(project.configurations.getByName(apiElementsConfigurationName))
-    val checkApiDependencies = project.registerCheckApiDependenciesTask(
-      taskName = "compatPatrouilleCheckApiDependencies",
-      compileClasspath = configuration,
-      kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() }
-    )
+  override fun checkApiDependencies(check: Boolean) {
+    if (check) {
+      val kotlin = project.extensions.findByName("kotlin")
+      val isKmp = if (kotlin != null) {
+        isKmp(kotlin)
+      } else {
+        false
+      }
+      val apiElementsConfigurationName = if (isKmp) {
+        "jvmApiElements"
+      } else {
+        "apiElements"
+      }
+      val configuration = project.configurations.create("compatPatrouilleCheck") {
+        it.isCanBeConsumed = false
+        it.isCanBeResolved = true
+        it.isVisible = false
+      }
+      configuration.extendsFrom(project.configurations.getByName(apiElementsConfigurationName))
+      val checkApiDependencies = project.registerCheckApiDependenciesTask(
+        taskName = "compatPatrouilleCheckApiDependencies",
+        compileClasspath = configuration,
+        kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() }
+      )
 
-    project.tasks.named("check").configure {
-      it.dependsOn(checkApiDependencies)
+      project.tasks.named("check").configure {
+        it.dependsOn(checkApiDependencies)
+      }
     }
   }
 }
