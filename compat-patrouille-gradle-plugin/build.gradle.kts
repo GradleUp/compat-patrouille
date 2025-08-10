@@ -1,5 +1,4 @@
 import com.gradleup.librarian.gradle.Librarian
-import org.gradle.api.internal.artifacts.dependencies.DefaultFileCollectionDependency
 
 plugins {
   id("org.jetbrains.kotlin.jvm")
