@@ -1,6 +1,7 @@
 package compat.patrouille.task
 
 import gratatouille.tasks.GClasspath
+import gratatouille.tasks.GLogger
 import gratatouille.tasks.GOutputFile
 import gratatouille.tasks.GTask
 import kotlinx.metadata.jvm.JvmMetadataVersion
@@ -12,8 +13,10 @@ import java.util.zip.ZipInputStream
 @OptIn(UnstableMetadataApi::class)
 @GTask
 internal fun checkApiDependencies(
-  compileClasspath: GClasspath,
+  logger: GLogger,
+  warningAsError: Boolean,
   kotlinVersion: String,
+  compileClasspath: GClasspath,
   output: GOutputFile
 ) {
   val c = kotlinVersion.split(".")
@@ -38,7 +41,7 @@ internal fun checkApiDependencies(
     fileWithPath.file.forEachModuleInfoFile { name, bytes ->
       val metadata = KotlinModuleMetadata.read(bytes)
       if (metadata.version > supportedVersion) {
-        error("${fileWithPath.file.path}:$name contains unsupported metadata ${metadata.version} (expected: $kotlinVersion)")
+        logger.logOrFail(warningAsError, "${fileWithPath.file.path}:$name contains unsupported metadata ${metadata.version} (expected: $kotlinVersion).  Use `./gradlew dependencies to investigate the dependency tree.")
       }
     }
   }
@@ -55,6 +58,14 @@ private fun File.forEachModuleInfoFile(block: (String, ByteArray) -> Unit) {
       }
       entry = zis.nextEntry
     }
+  }
+}
+
+internal fun GLogger.logOrFail(warningAsError: Boolean, message: String) {
+  if (warningAsError) {
+    kotlin.error(message)
+  } else {
+    warn(message)
   }
 }
 
