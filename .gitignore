@@ -1,6 +1,7 @@
 .kotlin
 .fleet
 .gradle
+*.bak
 
 # Build outputs
 build
