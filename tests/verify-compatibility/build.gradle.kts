@@ -12,7 +12,7 @@ import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.Opcodes
 
 plugins {
-  id("org.jetbrains.kotlin.jvm").version("1.9.0")
+  id("org.jetbrains.kotlin.jvm")
   id("maven-publish")
 }
 
@@ -136,3 +136,6 @@ tasks.register("verifyCompatibility", VerifyCompatibility::class.java) {
   dependsOn("publishAllPublicationsToTestRepository")
 }
 
+tasks.named("check") {
+  dependsOn("verifyCompatibility")
+}
