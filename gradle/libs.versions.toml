@@ -1,11 +1,12 @@
 [versions]
-gratatouille = "0.0.9"
+gratatouille = "0.1.0"
 
 [libraries]
 gradle-api = "dev.gradleplugins:gradle-api:8.0"
 agp = "com.android.tools.build:gradle:8.2.0"
 kgp = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"
-gratatouille-runtime = {  module = "com.gradleup.gratatouille:gratatouille-runtime", version.ref = "gratatouille" }
+gratatouille-tasks-runtime = {  module = "com.gradleup.gratatouille:gratatouille-tasks-runtime", version.ref = "gratatouille" }
+gratatouille-wiring-runtime = {  module = "com.gradleup.gratatouille:gratatouille-wiring-runtime", version.ref = "gratatouille" }
 kotlinx-metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0"
 
 [plugins]

@@ -3,9 +3,8 @@ import org.gradle.api.internal.artifacts.dependencies.DefaultFileCollectionDepen
 
 plugins {
   id("org.jetbrains.kotlin.jvm")
-  id("java-gradle-plugin")
-  id("com.gradleup.compat.patrouille")
-  id("com.gradleup.gratatouille")
+  id("com.google.devtools.ksp")
+  id("com.gradleup.gratatouille.wiring")
 }
 
 Librarian.module(project)
@@ -14,25 +13,10 @@ dependencies {
   compileOnly(libs.gradle.api)
   compileOnly(libs.agp)
   compileOnly(libs.kgp)
+  implementation(libs.gratatouille.wiring.runtime)
   gratatouille(project(":compat-patrouille-tasks"))
 }
 
-configurations.getByName("api").dependencies.removeIf {
-  it is DefaultFileCollectionDependency
+gratatouille {
+  codeGeneration()
 }
-
-compatPatrouille {
-  java(11)
-  kotlin("2.0.21")
-}
-
-gradlePlugin {
-  plugins {
-    create("com.gradleup.compat.patrouille") {
-      id = "com.gradleup.compat.patrouille"
-      description = "Helps with your compatibility troubles"
-      implementationClass = "compat.patrouille.CompatPatrouillePlugin"
-    }
-  }
-}
-

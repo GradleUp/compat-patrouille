@@ -1,8 +1,8 @@
 package compat.patrouille.task
 
-import gratatouille.GClasspath
-import gratatouille.GOutputFile
-import gratatouille.GTask
+import gratatouille.tasks.GClasspath
+import gratatouille.tasks.GOutputFile
+import gratatouille.tasks.GTask
 import kotlinx.metadata.jvm.JvmMetadataVersion
 import kotlinx.metadata.jvm.KotlinModuleMetadata
 import kotlinx.metadata.jvm.UnstableMetadataApi
