@@ -1,6 +1,6 @@
 import com.gradleup.librarian.core.tooling.init.kotlinPluginVersion
 import com.gradleup.librarian.gradle.Librarian
-import com.gradleup.librarian.gradle.configureKotlinCompatibility
+import compat.patrouille.configureKotlinCompatibility
 
 plugins {
   id("org.jetbrains.kotlin.jvm")
