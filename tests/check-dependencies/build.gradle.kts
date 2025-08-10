@@ -1,3 +1,5 @@
+import compat.patrouille.Severity
+
 plugins {
   id("org.jetbrains.kotlin.jvm")
   id("com.gradleup.compat.patrouille")
@@ -6,8 +8,8 @@ plugins {
 compatPatrouille {
   java(11)
   kotlin("1.9.0")
-  checkApiDependencies(compat.patrouille.Severity.WARNING)
-  checkRuntimeDependencies(compat.patrouille.Severity.WARNING)
+  checkApiDependencies(Severity.WARNING)
+  checkRuntimeDependencies(Severity.WARNING)
 }
 
 dependencies {
