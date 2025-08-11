@@ -76,9 +76,20 @@ class ConventionPlugin: Plugin<Project> {
 
 That's it, you can now keep on with your life.
 
-### Note
+### Checking transitive dependencies
 
-Calling `CompatPatrouilleExtension.java()` or `CompatPatrouille.kotlin()` requires the java/kotlin/android to be applied (this plugin does not use `pluginManager.withId {}`). This is typically the case if you use the `plugins {}` block. But If you're applying your plugins programmatically, make sure to call `CompatPatrouilleExtension.java()` or `CompatPatrouille.kotlin()` only after all your plugins have been applied.
+Enforcing compiler flags works for your own code but doesn't check your dependencies. They may use incompatible APIs and/or produce incompatible metadata.
+
+You can have compat-patrouille fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
+
+```kotlin
+compatPatrouille {
+  // Fail the build if any dependency exposes incompatible Kotlin metadata.
+  checkApiDependencies(Severity.ERROR)
+  // Fail the build if any dependency relies on an incompatible kotlin-stdlib version.
+  checkRuntimeDependencies(Severity.ERROR)
+}
+```
 
 ### Requirements:
 
