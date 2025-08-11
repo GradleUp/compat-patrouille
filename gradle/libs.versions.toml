@@ -13,6 +13,6 @@ kotlinx-metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0"
 kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.2.0" }
 ksp = { id = "com.google.devtools.ksp", version = "2.2.0-2.0.2" }
 librarian = { id = "com.gradleup.librarian", version = "0.1.1-SNAPSHOT-147a17244c5d39eb6188ee71c06a39fd4c63df15" }
-nmcp = { id = "com.gradleup.nmcp", version = "1.0.4-SNAPSHOT-605dc79a09489722bdc02479d0f2f233e8d0f7fc" }
+nmcp = { id = "com.gradleup.nmcp", version = "1.0.4-SNAPSHOT-7663b69da8628aa2a8e73334af3fb052688fbc92" }
 compat-patrouille = { id = "com.gradleup.compat.patrouille", version = "0.0.1-SNAPSHOT-6757526acb8472d098bed30aa17531d7f127571f" }
 gratatouille = { id = "com.gradleup.gratatouille", version.ref = "gratatouille" }
