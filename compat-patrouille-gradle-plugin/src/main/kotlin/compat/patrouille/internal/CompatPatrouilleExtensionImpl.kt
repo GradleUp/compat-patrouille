@@ -48,7 +48,11 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
       it.isCanBeResolved = true
       it.isVisible = false
     }
-    configuration.extendsFrom(project.configurations.getByName(apiElementsConfigurationName))
+    project.configurations.configureEach {
+      if (it.name == apiElementsConfigurationName) {
+        configuration.extendsFrom(it)
+      }
+    }
     val checkApiDependencies = project.registerCheckApiDependenciesTask(
       warningAsError = project.provider { severity == Severity.ERROR },
       kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },

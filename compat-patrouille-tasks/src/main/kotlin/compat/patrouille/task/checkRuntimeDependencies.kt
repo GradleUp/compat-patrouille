@@ -3,7 +3,6 @@ package compat.patrouille.task
 import gratatouille.tasks.GLogger
 import gratatouille.tasks.GOutputFile
 import gratatouille.tasks.GTask
-import kotlin.math.log
 import kotlinx.metadata.jvm.UnstableMetadataApi
 
 @OptIn(UnstableMetadataApi::class)
