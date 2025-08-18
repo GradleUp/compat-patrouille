@@ -77,8 +77,8 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
     } else {
       return
     }
-    targets.forEach {
-      it.compilations.forEach {
+    targets.forEach { target ->
+      target.compilations.forEach {
         val configuration = it.runtimeDependencyConfigurationName?.let {
           project.configurations.named(it)
         }
@@ -94,7 +94,7 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
               }
           }
           val task = project.registerCheckRuntimeDependenciesTask(
-            taskName = "compatPatrouilleCheck${it.name}RuntimeDependencies",
+            taskName = "compatPatrouilleCheck${target.name}${it.name}RuntimeDependencies",
             warningAsError = project.provider { severity == Severity.ERROR },
             kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },
             transitiveKotlinVersions = stdlibVersions,
