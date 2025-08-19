@@ -77,6 +77,8 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
     } else {
       return
     }
+    val lifecycleTask = project.tasks.register("compatPatrouilleCheckRuntimeDependencies")
+
     targets.forEach { target ->
       target.compilations.forEach {
         val configuration = it.runtimeDependencyConfigurationName?.let {
@@ -100,6 +102,9 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
             transitiveKotlinVersions = stdlibVersions,
           )
           project.tasks.named("check").configure {
+            it.dependsOn(task)
+          }
+          lifecycleTask.configure {
             it.dependsOn(task)
           }
         }
