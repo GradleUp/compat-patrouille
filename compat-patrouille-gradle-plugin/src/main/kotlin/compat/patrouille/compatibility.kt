@@ -13,6 +13,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 
 fun Project.configureJavaCompatibility(
@@ -84,6 +86,29 @@ fun Project.configureKotlinCompatibility(
   }
 
   kotlin.coreLibrariesVersion = version
+
+  /**
+   * Wasm and JS require the latest kotlin stdlib
+   *
+   * See https://youtrack.jetbrains.com/issue/KT-66755/
+   */
+  if (kotlin is KotlinMultiplatformExtension && findProperty("kotlin.stdlib.default.dependency") != "false") {
+    kotlin.targets.configureEach { target ->
+      target.compilations.configureEach {
+        when (target.platformType) {
+          KotlinPlatformType.js,
+          KotlinPlatformType.wasm,
+              // do we need native here as well?
+            -> {
+            it.defaultSourceSet.dependencies {
+              api("org.jetbrains.kotlin:kotlin-stdlib:${getKotlinPluginVersion()}")
+            }
+          }
+          else -> return@configureEach
+        }
+      }
+    }
+  }
 }
 
 internal fun Project.configureJavaCompatibilityInternal(javaVersion: JavaVersion) {

@@ -5,4 +5,4 @@ pluginManagement {
 }
 
 includeBuild("../")
-include(":check-dependencies", ":verify-compatibility")
+include(":check-dependencies", ":verify-compatibility", ":wasm-js")
