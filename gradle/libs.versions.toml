@@ -1,13 +1,17 @@
 [versions]
 gratatouille = "0.1.0"
+# Version of KGP we are using to build compat-patrouille
+kgp-latest = "2.2.0"
+# Version of KGP compat-patrouille is compatible with at runtime
+kgp-compile-only = "1.9.0"
 
 [libraries]
 gradle-api = "dev.gradleplugins:gradle-api:8.0"
 agp = "com.android.tools.build:gradle:8.2.0"
-kgp = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"
-gratatouille-tasks-runtime = {  module = "com.gradleup.gratatouille:gratatouille-tasks-runtime", version.ref = "gratatouille" }
-gratatouille-wiring-runtime = {  module = "com.gradleup.gratatouille:gratatouille-wiring-runtime", version.ref = "gratatouille" }
-kotlinx-metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0"
+kgp-compile-only = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kgp-compile-only" }
+gratatouille-tasks-runtime = { module = "com.gradleup.gratatouille:gratatouille-tasks-runtime", version.ref = "gratatouille" }
+gratatouille-wiring-runtime = { module = "com.gradleup.gratatouille:gratatouille-wiring-runtime", version.ref = "gratatouille" }
+kotlinx-metadata = { module = "org.jetbrains.kotlin:kotlin-metadata-jvm", version.ref = "kgp-latest" }
 
 [plugins]
 kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.2.0" }

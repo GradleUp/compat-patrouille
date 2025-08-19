@@ -11,7 +11,7 @@ Librarian.module(project)
 dependencies {
   compileOnly(libs.gradle.api)
   compileOnly(libs.agp)
-  compileOnly(libs.kgp)
+  compileOnly(libs.kgp.compile.only)
   implementation(libs.gratatouille.wiring.runtime)
   gratatouille(project(":compat-patrouille-tasks"))
 }
