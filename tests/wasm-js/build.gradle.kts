@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
   id("org.jetbrains.kotlin.multiplatform")
   id("com.gradleup.compat.patrouille")
+  id("maven-publish")
 }
 
 compatPatrouille {
@@ -13,6 +14,7 @@ compatPatrouille {
 }
 
 kotlin {
+  jvm()
   wasmJs {
     nodejs()
     binaries.executable()
