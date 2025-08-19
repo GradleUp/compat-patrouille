@@ -31,7 +31,7 @@ Configuring Java/Kotlin compatibility flags is a mundane task that comes with su
 La Compat Patrouille handles all of that with just two simple functions!
 
 > [!NOTE]
-> Compatibility flags only work for JVM targets. [Other KMP targets currently have no compatibility modes](#kotin-multiplatform-kmp). 
+> Compatibility flags only work for JVM targets. [See below for more details](#kotlin-multiplatform-kmp). 
  
 ### Usage
 
