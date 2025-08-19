@@ -3,9 +3,7 @@ package compat.patrouille.task
 import gratatouille.tasks.GLogger
 import gratatouille.tasks.GOutputFile
 import gratatouille.tasks.GTask
-import kotlinx.metadata.jvm.UnstableMetadataApi
 
-@OptIn(UnstableMetadataApi::class)
 @GTask
 internal fun checkRuntimeDependencies(
   logger: GLogger,

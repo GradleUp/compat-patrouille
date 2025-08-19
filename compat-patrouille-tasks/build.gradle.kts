@@ -11,7 +11,7 @@ plugins {
 Librarian.module(project)
 
 dependencies {
-  implementation(libs.kotlinx.metadata)
+  implementation(libs.kotlin.metadata)
   implementation(libs.gratatouille.tasks.runtime)
 }
 
