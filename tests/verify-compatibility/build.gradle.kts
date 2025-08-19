@@ -2,8 +2,8 @@ import cast.cast
 import com.nfeld.jsonpathkt.kotlinx.resolvePathOrNull
 import compat.patrouille.CompatPatrouilleExtension
 import java.util.zip.ZipInputStream
-import kotlinx.metadata.jvm.KotlinModuleMetadata
-import kotlinx.metadata.jvm.UnstableMetadataApi
+import kotlin.metadata.jvm.KotlinModuleMetadata
+import kotlin.metadata.jvm.UnstableMetadataApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonPrimitive

@@ -4,11 +4,11 @@ import gratatouille.tasks.GClasspath
 import gratatouille.tasks.GLogger
 import gratatouille.tasks.GOutputFile
 import gratatouille.tasks.GTask
-import kotlinx.metadata.jvm.JvmMetadataVersion
-import kotlinx.metadata.jvm.KotlinModuleMetadata
-import kotlinx.metadata.jvm.UnstableMetadataApi
 import java.io.File
 import java.util.zip.ZipInputStream
+import kotlin.metadata.jvm.JvmMetadataVersion
+import kotlin.metadata.jvm.KotlinModuleMetadata
+import kotlin.metadata.jvm.UnstableMetadataApi
 
 @OptIn(UnstableMetadataApi::class)
 @GTask

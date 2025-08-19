@@ -11,7 +11,7 @@ agp = "com.android.tools.build:gradle:8.2.0"
 kgp-compile-only = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kgp-compile-only" }
 gratatouille-tasks-runtime = { module = "com.gradleup.gratatouille:gratatouille-tasks-runtime", version.ref = "gratatouille" }
 gratatouille-wiring-runtime = { module = "com.gradleup.gratatouille:gratatouille-wiring-runtime", version.ref = "gratatouille" }
-kotlinx-metadata = { module = "org.jetbrains.kotlin:kotlin-metadata-jvm", version.ref = "kgp-latest" }
+kotlin-metadata = { module = "org.jetbrains.kotlin:kotlin-metadata-jvm", version.ref = "kgp-latest" }
 
 [plugins]
 kgp = { id = "org.jetbrains.kotlin.jvm", version = "2.2.0" }
