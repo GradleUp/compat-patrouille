@@ -21,7 +21,7 @@ buildscript {
     classpath("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0")
     classpath("com.eygraber:jsonpathkt-kotlinx:3.0.2")
     classpath("net.mbonnin.cast:cast:0.0.1")
-    classpath("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0")
+    classpath(libs.kotlin.metadata)
     classpath("org.ow2.asm:asm:9.8")
     classpath("com.gradleup.compat.patrouille:compat-patrouille-gradle-plugin")
   }
