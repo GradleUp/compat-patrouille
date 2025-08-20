@@ -1,3 +1,13 @@
+# 0.0.2
+_2025-08-20_
+
+A few bugfixes, upgrades and ergonomics improvements. Many thanks @OliverO2 and @Mr3zee for their feedback in this release.
+
+* [NEW] Add compatPatrouilleCheckRuntimeDependencies as a lifecycle task https://github.com/GradleUp/compat-patrouille/pull/23
+* [NEW] For JS and Wasm, add the KGP kotlin-stdlib instead of relying on `coreLibrariesVersion` https://github.com/GradleUp/compat-patrouille/pull/24
+* [FIX] Make checkApiDependencies lazier https://github.com/GradleUp/compat-patrouille/pull/20
+* [FIX] Fix KMP with multiple targets https://github.com/GradleUp/compat-patrouille/pull/21
+* [UPGRADE] Use latest kotlin-metadata lib https://github.com/GradleUp/compat-patrouille/pull/22
 
 # 0.0.1
 _2025-08-11_
