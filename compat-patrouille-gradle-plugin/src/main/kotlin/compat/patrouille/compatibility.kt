@@ -114,12 +114,12 @@ fun Project.configureKotlinCompatibility(
 internal fun Project.configureJavaCompatibilityInternal(javaVersion: JavaVersion) {
   if (hasAndroid) {
     androidJavaVersion(javaVersion)
-    tasks.withType(JavaCompile::class.java) {
+    tasks.withType(JavaCompile::class.java).configureEach {
       it.sourceCompatibility = javaVersion.toString()
       it.targetCompatibility = javaVersion.toString()
     }
   } else {
-    tasks.withType(JavaCompile::class.java) {
+    tasks.withType(JavaCompile::class.java).configureEach {
       it.options.release.set(javaVersion.majorVersion.toInt())
     }
   }
