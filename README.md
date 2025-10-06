@@ -9,7 +9,7 @@ The Compat-Patrouille helps you configure your Java/Kotlin compatibility flags:
 ```kotlin
 compatPatrouille {
   java(17) // build for Java 17, including source, target and api compatibility
-  kotlin("2.0.21") // build for kotlin 2.0.21, including language and api version
+  kotlin("2.1.0") // build for kotlin 2.1.0, including language and api version
 }
 ```
 
@@ -60,7 +60,7 @@ compatPatrouille {
   java(17)
   // Kotlin takes a string so you have more control of the patch release of the stdlib.
   // languageVersion/apiVersion are configured with the minor version only.
-  kotlin("2.2.20")
+  kotlin("2.1.0")
 }
 ```
 
@@ -73,7 +73,7 @@ import compat.patrouille.configureKotlinCompatibility
 class ConventionPlugin: Plugin<Project> {
   override fun apply(target: Project) {
     target.configureJavaCompatibility(17)
-    target.configureKotlinCompatibility("2.2.20")
+    target.configureKotlinCompatibility("2.1.0")
   }
 }
 ```
