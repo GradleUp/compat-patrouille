@@ -47,7 +47,7 @@ plugins {
   id("com.android.library")
   // etc...
   // And add the CompatPatrouille plugin
-  id("com.gradleup.compat.patrouille").version("0.0.2")
+  id("com.gradleup.compat.patrouille").version("0.0.3")
 }
 
 /*
@@ -60,7 +60,7 @@ compatPatrouille {
   java(17)
   // Kotlin takes a string so you have more control of the patch release of the stdlib.
   // languageVersion/apiVersion are configured with the minor version only.
-  kotlin("2.0.21")
+  kotlin("2.2.20")
 }
 ```
 
@@ -73,7 +73,7 @@ import compat.patrouille.configureKotlinCompatibility
 class ConventionPlugin: Plugin<Project> {
   override fun apply(target: Project) {
     target.configureJavaCompatibility(17)
-    target.configureKotlinCompatibility("2.0.21")
+    target.configureKotlinCompatibility("2.2.20")
   }
 }
 ```
