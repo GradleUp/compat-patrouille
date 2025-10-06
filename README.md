@@ -47,7 +47,7 @@ plugins {
   id("com.android.library")
   // etc...
   // And add the CompatPatrouille plugin
-  id("com.gradleup.compat.patrouille").version("0.0.2")
+  id("com.gradleup.compat.patrouille").version("0.0.3")
 }
 
 /*
