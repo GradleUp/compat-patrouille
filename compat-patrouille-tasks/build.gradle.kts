@@ -1,6 +1,6 @@
-import com.gradleup.librarian.core.tooling.init.kotlinPluginVersion
 import com.gradleup.librarian.gradle.Librarian
 import compat.patrouille.configureKotlinCompatibility
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 plugins {
   id("org.jetbrains.kotlin.jvm")
@@ -16,7 +16,7 @@ dependencies {
 }
 
 // Override the default from Librarian, we want to be able to use the latest Kotlin version here.
-configureKotlinCompatibility(kotlinPluginVersion)
+configureKotlinCompatibility(getKotlinPluginVersion())
 
 gratatouille {
   codeGeneration {
