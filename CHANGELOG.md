@@ -1,3 +1,8 @@
+# 0.0.3
+_2025-10-06_
+
+Do not configure `JavaCompile` tasks eagerly (https://github.com/GradleUp/compat-patrouille/issues/27)
+
 # 0.0.2
 _2025-08-20_
 
