@@ -3,14 +3,17 @@ pluginManagement {
     it.apply {
       mavenCentral()
       google()
+      maven("https://storage.googleapis.com/gradleup/m2") {
+        content {
+          includeModule("com.gradleup.gratatouille", "gratatouille-processor")
+        }
+      }
     }
   }
   repositories {
     maven("https://storage.googleapis.com/gradleup/m2") {
       content {
-        includeGroup("com.gradleup.librarian")
-        includeGroup("com.gradleup.nmcp")
-        includeGroup("com.gradleup.compat.patrouille")
+        includeGroupByRegex("com\\.gradleup\\..*")
       }
     }
   }

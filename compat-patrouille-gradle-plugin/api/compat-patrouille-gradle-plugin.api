@@ -31,15 +31,6 @@ public final class compat/patrouille/Severity : java/lang/Enum {
 
 public final class compat/patrouille/internal/Compatibility_kotlinKt {
 	public static final fun forEachCompilerOptions (Lorg/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension;Lkotlin/jvm/functions/Function2;)V
-}
-
-public final class compat/patrouille/internal/Project_androidKt {
-	public static final fun getAndroidExtension (Lorg/gradle/api/Project;)Lcom/android/build/api/dsl/CommonExtension;
-	public static final fun getAndroidExtensionOrNull (Lorg/gradle/api/Project;)Lcom/android/build/api/dsl/CommonExtension;
-}
-
-public final class compat/patrouille/internal/Project_kotlinKt {
-	public static final fun getKotlinExtension (Lorg/gradle/api/Project;)Lorg/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension;
 	public static final fun isKmp (Ljava/lang/Object;)Z
 }
 

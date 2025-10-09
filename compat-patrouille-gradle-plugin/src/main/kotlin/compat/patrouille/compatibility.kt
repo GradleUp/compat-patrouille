@@ -1,14 +1,15 @@
 package compat.patrouille
 
-import compat.patrouille.internal.androidJavaVersion
+import compat.patrouille.internal.agp
 import compat.patrouille.internal.configureKotlinJvmTarget
 import compat.patrouille.internal.forEachCompilerOptions
-import compat.patrouille.internal.hasAndroid
 import compat.patrouille.internal.kotlinExtensionOrNull
 import java.lang.reflect.Method
+import kotlin.text.toInt
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -23,7 +24,26 @@ fun Project.configureJavaCompatibility(
   check(extensions.findByName("java") != null) {
     "CompatPatrouille: cannot configure Java compatibility since the Java plugin is not applied."
   }
-  configureJavaCompatibilityInternal(javaVersion.toJavaVersion())
+  val agp = project.agp()
+  val javaVersion = javaVersion.toJavaVersion()
+  if (agp != null) {
+    agp.configureCompileJavaTasks(javaVersion)
+
+    /**
+     * It's very unlikely, but there might be non-Android compileJava classes.
+     * For those, we set the --release flag.
+     */
+    tasks.withType(JavaCompile::class.java).configureEach {
+      if (!agp.isAndroidJavaCompileTask(it.name)) {
+        it.options.release.set(javaVersion.majorVersion.toInt())
+      }
+    }
+  } else {
+    tasks.withType(JavaCompile::class.java).configureEach {
+      it.options.release.set(javaVersion.majorVersion.toInt())
+    }
+  }
+  configureKotlinJvmTarget(javaVersion)
 }
 
 private var method: Method? = null
@@ -53,6 +73,12 @@ fun Project.configureKotlinCompatibility(
   }
   val kotlinVersion = KotlinVersion.fromVersion(version.substringBeforeLast("."))
   when (kotlin) {
+    is KotlinAndroidProjectExtension -> {
+      kotlin.compilerOptions {
+        apiVersion.set(kotlinVersion)
+        languageVersion.set(kotlinVersion)
+      }
+    }
     is KotlinJvmProjectExtension -> {
       kotlin.compilerOptions {
         apiVersion.set(kotlinVersion)
@@ -110,22 +136,6 @@ fun Project.configureKotlinCompatibility(
     }
   }
 }
-
-internal fun Project.configureJavaCompatibilityInternal(javaVersion: JavaVersion) {
-  if (hasAndroid) {
-    androidJavaVersion(javaVersion)
-    tasks.withType(JavaCompile::class.java).configureEach {
-      it.sourceCompatibility = javaVersion.toString()
-      it.targetCompatibility = javaVersion.toString()
-    }
-  } else {
-    tasks.withType(JavaCompile::class.java).configureEach {
-      it.options.release.set(javaVersion.majorVersion.toInt())
-    }
-  }
-  configureKotlinJvmTarget(javaVersion)
-}
-
 
 internal fun Int.toJavaVersion(): JavaVersion {
   return JavaVersion.forClassVersion(this + 44)

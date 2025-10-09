@@ -1,7 +1,7 @@
 import compat.patrouille.Severity
 
 plugins {
-  id("org.jetbrains.kotlin.jvm")
+  alias(libs.plugins.kgp.jvm)
   id("com.gradleup.compat.patrouille")
 }
 
