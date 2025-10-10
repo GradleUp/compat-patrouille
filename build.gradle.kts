@@ -1,7 +1,7 @@
 import com.gradleup.librarian.gradle.Librarian
 
 plugins {
-  alias(libs.plugins.kgp).apply(false)
+  alias(libs.plugins.kgp.jvm).apply(false)
   alias(libs.plugins.librarian).apply(false)
   alias(libs.plugins.nmcp).apply(false)
   alias(libs.plugins.compat.patrouille).apply(false)

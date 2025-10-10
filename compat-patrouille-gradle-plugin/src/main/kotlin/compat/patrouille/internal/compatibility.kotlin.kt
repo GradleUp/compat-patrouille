@@ -21,9 +21,13 @@ internal fun Project.configureKotlinJvmTarget(javaVersion: JavaVersion) {
     when (this) {
       is KotlinJvmCompilerOptions -> {
         val version = javaVersion.toInt()
-
         if (platformType != KotlinPlatformType.androidJvm) {
-          // See https://cs.android.com/android-studio/platform/tools/base/+/mirror-goog-studio-main:build-system/gradle-core/src/main/java/com/android/build/gradle/tasks/JavaCompileUtils.kt;l=410?q=Using%20%27--release%27%20option%20for%20JavaCompile%20is%20not%20supported%20because%20it%20prevents%20the%20Android%20Gradle%20plugin
+          /**
+           * See https://cs.android.com/android-studio/platform/tools/base/+/mirror-goog-studio-main:build-system/gradle-core/src/main/java/com/android/build/gradle/tasks/JavaCompileUtils.kt;l=410?q=Using%20%27--release%27%20option%20for%20JavaCompile%20is%20not%20supported%20because%20it%20prevents%20the%20Android%20Gradle%20plugin
+           *
+           * Note that when using 'org.jetbrains.kotlin.multiplatform', we still enter this branch but it looks like `-Xjdk-release` is ignored in that case.
+           * See https://youtrack.jetbrains.com/issue/KT-81606/com.android.kotlin.multiplatform.library-doesnt-error-on-Xjdk-release-usage.
+           */
           freeCompilerArgs.add("-Xjdk-release=${version}")
         }
         /**
@@ -59,4 +63,16 @@ fun KotlinProjectExtension.forEachCompilerOptions(block: KotlinCommonCompilerOpt
 
     else -> error("Unknown kotlin extension $this")
   }
+}
+
+
+internal val Project.kotlinExtensionOrNull: KotlinProjectExtension? get() = extensions.findByName("kotlin") as KotlinProjectExtension?
+
+
+/**
+ * This function is very simple but extracted to a separate file to avoid class loading issues
+ * if KGP is not in the classpath
+ */
+fun isKmp(extension: Any): Boolean {
+  return extension is KotlinMultiplatformExtension
 }

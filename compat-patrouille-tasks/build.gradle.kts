@@ -21,5 +21,6 @@ configureKotlinCompatibility(getKotlinPluginVersion())
 gratatouille {
   codeGeneration {
     classLoaderIsolation()
+    addDependencies.set(false)
   }
 }

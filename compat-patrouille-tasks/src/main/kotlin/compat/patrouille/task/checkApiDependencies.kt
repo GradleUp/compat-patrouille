@@ -41,7 +41,7 @@ internal fun checkApiDependencies(
     fileWithPath.file.forEachModuleInfoFile { name, bytes ->
       val metadata = KotlinModuleMetadata.read(bytes)
       if (metadata.version > supportedVersion) {
-        logger.logOrFail(warningAsError, "${fileWithPath.file.path}:$name contains unsupported metadata ${metadata.version} (expected: $kotlinVersion).  Use `./gradlew dependencies to investigate the dependency tree.")
+        logger.logOrFail(warningAsError, "w: ${fileWithPath.file.path}:$name contains unsupported metadata ${metadata.version} (expected: $kotlinVersion).  Use `./gradlew dependencies to investigate the dependency tree.")
       }
     }
   }
