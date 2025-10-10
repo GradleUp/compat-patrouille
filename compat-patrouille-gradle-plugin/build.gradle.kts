@@ -23,6 +23,9 @@ dependencies {
 val main = kotlin.target.compilations.getByName("main")
 
 main.associateWith(agp)
+tasks.jar {
+  from(agp.output.classesDirs)
+}
 
 /**
  * associateWith() pulls the secondary compilations into the main dependencies,
