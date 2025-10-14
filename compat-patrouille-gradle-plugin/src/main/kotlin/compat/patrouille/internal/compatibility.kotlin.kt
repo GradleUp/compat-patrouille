@@ -52,8 +52,8 @@ fun KotlinProjectExtension.forEachCompilerOptions(block: KotlinCommonCompilerOpt
     is KotlinJvmProjectExtension -> compilerOptions.block(KotlinPlatformType.jvm)
     is KotlinAndroidProjectExtension -> compilerOptions.block(KotlinPlatformType.androidJvm)
     is KotlinMultiplatformExtension -> {
-      targets.all { target ->
-        target.compilations.all {
+      targets.configureEach { target ->
+        target.compilations.configureEach {
           it.compileTaskProvider.configure {
             it.compilerOptions.block(target.platformType)
           }
