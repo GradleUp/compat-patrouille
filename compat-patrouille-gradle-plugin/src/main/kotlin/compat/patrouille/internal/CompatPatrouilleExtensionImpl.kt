@@ -7,6 +7,7 @@ import compat.patrouille.configureKotlinCompatibility
 import compat.patrouille.task.registerCheckApiDependenciesTask
 import compat.patrouille.task.registerCheckRuntimeDependenciesTask
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -48,13 +49,10 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
       it.isCanBeResolved = true
       it.isVisible = false
     }
-    project.configurations.configureEach { sourceConfig ->
-      if (sourceConfig.name == apiElementsConfigurationName) {
-        configurationProvider.configure { targetConfig ->
-          targetConfig.extendsFrom(sourceConfig)
-        }
-      }
-    }
+    project.configurations
+      .withType(Configuration::class.java)
+      .matching { it.name == apiElementsConfigurationName }
+      .configureEach { configurationProvider.get().extendsFrom(it) }
     val checkApiDependencies = project.registerCheckApiDependenciesTask(
       warningAsError = project.provider { severity == Severity.ERROR },
       kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },
