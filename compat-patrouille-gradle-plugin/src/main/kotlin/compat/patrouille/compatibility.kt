@@ -118,7 +118,11 @@ fun Project.configureKotlinCompatibility(
    *
    * See https://youtrack.jetbrains.com/issue/KT-66755/
    */
-  if (kotlin is KotlinMultiplatformExtension && findProperty("kotlin.stdlib.default.dependency") != "false") {
+  val isStdlibDefaultDependencyEnabled =
+    providers.gradleProperty("kotlin.stdlib.default.dependency")
+      .map { it.toBooleanStrictOrNull() != false }
+      .getOrElse(true)
+  if (kotlin is KotlinMultiplatformExtension && isStdlibDefaultDependencyEnabled) {
     kotlin.targets.configureEach { target ->
       target.compilations.configureEach {
         when (target.platformType) {
