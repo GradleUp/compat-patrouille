@@ -57,7 +57,7 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
       warningAsError = project.provider { severity == Severity.ERROR },
       kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },
       taskName = "compatPatrouilleCheckApiDependencies",
-      compileClasspath = configurationProvider.get(),
+      compileClasspath = project.files(configurationProvider),
     )
 
     project.tasks.named("check").configure {
