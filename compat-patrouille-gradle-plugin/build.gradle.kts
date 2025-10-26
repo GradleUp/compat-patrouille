@@ -47,7 +47,7 @@ dependencies {
   compileOnly(libs.gradle.api)
   compileOnly(libs.kgp.compile.only)
   implementation(libs.gratatouille.wiring.runtime)
-  gratatouille(project(":compat-patrouille-tasks"))
+  gratatouille(project(":tapmoc-tasks"))
 }
 
 gratatouille {
