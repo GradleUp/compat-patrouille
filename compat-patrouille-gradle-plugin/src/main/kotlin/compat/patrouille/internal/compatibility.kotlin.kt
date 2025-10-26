@@ -1,6 +1,6 @@
-package compat.patrouille.internal
+package tapmoc.internal
 
-import compat.patrouille.toInt
+import tapmoc.toInt
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget

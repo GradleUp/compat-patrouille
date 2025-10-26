@@ -1,4 +1,4 @@
-package compat.patrouille.internal
+package tapmoc.internal
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion

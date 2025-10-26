@@ -28,7 +28,7 @@ abstract class CheckPublicationExtension(project: Project) {
   abstract val kotlinMetadataVersion: Property<String>
 
   init {
-    project.pluginManager.withPlugin("com.gradleup.compat.patrouille") {
+    project.pluginManager.withPlugin("com.gradleup.tapmoc") {
       project.pluginManager.apply("maven-publish")
 
       with(project) {

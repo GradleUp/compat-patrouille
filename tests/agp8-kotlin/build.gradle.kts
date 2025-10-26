@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   alias(libs.plugins.agp8)
   alias(libs.plugins.kgp.android)
-  id("com.gradleup.compat.patrouille")
+  id("com.gradleup.tapmoc")
   id("check.publication")
 }
 

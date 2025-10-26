@@ -1,8 +1,8 @@
-import compat.patrouille.Severity
+import tapmoc.Severity
 
 plugins {
   alias(libs.plugins.kgp.jvm)
-  id("com.gradleup.compat.patrouille")
+  id("com.gradleup.tapmoc")
 }
 
 tapmoc {
