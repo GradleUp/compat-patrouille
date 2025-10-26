@@ -82,15 +82,15 @@ That's it, you can now keep on with your life.
 
 ### Checking transitive dependencies
 
-Enforcing compiler flags works for your own code but doesn't check your dependencies. They may use incompatible APIs and/or produce incompatible metadata.
+Enforcing compiler flags works for your own code but doesn't check your dependencies. They may use incompatible APIs that will crash at runtime and/or produce incompatible metadata that will crash at build time.
 
 You can have compat-patrouille fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
 
 ```kotlin
 compatPatrouille {
-  // Fail the build if any dependency exposes incompatible Kotlin metadata.
+  // Fail the build if any api dependency exposes incompatible Kotlin metadata.
   checkApiDependencies(Severity.ERROR)
-  // Fail the build if any dependency relies on an incompatible kotlin-stdlib version.
+  // Fail the build if any runtime dependency relies on an incompatible kotlin-stdlib version.
   checkRuntimeDependencies(Severity.ERROR)
 }
 ```
