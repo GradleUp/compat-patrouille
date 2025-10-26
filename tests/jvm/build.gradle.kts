@@ -4,7 +4,7 @@ plugins {
   id("check.publication")
 }
 
-compatPatrouille {
+tapmoc {
   java(11)
   kotlin("1.9.0")
 }

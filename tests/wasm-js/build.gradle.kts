@@ -8,7 +8,7 @@ plugins {
   id("maven-publish")
 }
 
-compatPatrouille {
+tapmoc {
   java(11)
   kotlin("2.0.0")
 }

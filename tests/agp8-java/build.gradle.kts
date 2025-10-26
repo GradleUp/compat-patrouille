@@ -7,7 +7,7 @@ plugins {
 }
 
 val myJvmTarget = 11
-compatPatrouille {
+tapmoc {
   java(myJvmTarget)
 }
 

@@ -7,7 +7,7 @@
 The Compat-Patrouille helps you configure your Java/Kotlin compatibility flags: 
 
 ```kotlin
-compatPatrouille {
+tapmoc {
   java(17) // build for Java 17, including source, target and api compatibility
   kotlin("2.1.0") // build for kotlin 2.1.0, including language and api version
 }
@@ -55,7 +55,7 @@ plugins {
  * This code block works regardless of if you're using Kotlin/Android/KMP/etc...
  * You can copy/paste it
  */
-compatPatrouille {
+tapmoc {
   // Java takes an int for simplicity
   java(17)
   // Kotlin takes a string so you have more control of the patch release of the stdlib.
@@ -87,7 +87,7 @@ Enforcing compiler flags works for your own code but doesn't check your dependen
 You can have compat-patrouille fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
 
 ```kotlin
-compatPatrouille {
+tapmoc {
   // Fail the build if any api dependency exposes incompatible Kotlin metadata.
   checkApiDependencies(Severity.ERROR)
   // Fail the build if any runtime dependency relies on an incompatible kotlin-stdlib version.
