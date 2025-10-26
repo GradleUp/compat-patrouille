@@ -25,7 +25,7 @@ gratatouille {
   pluginLocalPublication("check.publication")
 }
 
-tapmoc {
+compatPatrouille {
   java(11)
   kotlin(embeddedKotlinVersion)
 }
