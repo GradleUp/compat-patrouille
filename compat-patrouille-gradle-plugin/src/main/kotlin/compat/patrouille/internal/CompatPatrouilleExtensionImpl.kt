@@ -44,7 +44,7 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
     } else {
       "apiElements"
     }
-    val configurationProvider = project.configurations.register("compatPatrouilleCheck") {
+    val configurationProvider = project.configurations.register("tapmocCheck") {
       it.isCanBeConsumed = false
       it.isCanBeResolved = true
       it.isVisible = false
@@ -56,7 +56,7 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
     val checkApiDependencies = project.registerCheckApiDependenciesTask(
       warningAsError = project.provider { severity == Severity.ERROR },
       kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },
-      taskName = "compatPatrouilleCheckApiDependencies",
+      taskName = "tapmocCheckApiDependencies",
       compileClasspath = project.files(configurationProvider),
     )
 
@@ -77,7 +77,7 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
     } else {
       return
     }
-    val lifecycleTask = project.tasks.register("compatPatrouilleCheckRuntimeDependencies")
+    val lifecycleTask = project.tasks.register("tapmocCheckRuntimeDependencies")
 
     targets.forEach { target ->
       target.compilations.forEach {
@@ -96,7 +96,7 @@ internal abstract class CompatPatrouilleExtensionImpl(private val project: Proje
               }
           }
           val task = project.registerCheckRuntimeDependenciesTask(
-            taskName = "compatPatrouilleCheck${target.name}${it.name}RuntimeDependencies",
+            taskName = "tapmocCheck${target.name}${it.name}RuntimeDependencies",
             warningAsError = project.provider { severity == Severity.ERROR },
             kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },
             transitiveKotlinVersions = stdlibVersions,

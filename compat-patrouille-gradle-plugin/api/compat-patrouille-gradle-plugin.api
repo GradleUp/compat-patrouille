@@ -12,7 +12,7 @@ public abstract class compat/patrouille/CompatPatrouillePlugin : org/gradle/api/
 }
 
 public final class compat/patrouille/CompatPatrouillePluginKt {
-	public static final fun compatPatrouillePlugin (Lorg/gradle/api/Project;)V
+	public static final fun tapmocPlugin (Lorg/gradle/api/Project;)V
 }
 
 public final class compat/patrouille/CompatibilityKt {

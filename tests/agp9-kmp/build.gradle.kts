@@ -8,7 +8,7 @@ plugins {
 val myJvmTarget = 11
 val myKotlinMetadataVersion = "2.0.0"
 
-compatPatrouille {
+tapmoc {
   java(myJvmTarget)
   kotlin(myKotlinMetadataVersion)
 }

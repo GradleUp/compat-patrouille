@@ -29,7 +29,7 @@ interface CompatPatrouilleExtension {
   fun kotlin(version: String)
 
   /**
-   * If [check] is true, registers a `compatPatrouilleCheckApiDependencies` task that walks all the api dependencies
+   * If [check] is true, registers a `tapmocCheckApiDependencies` task that walks all the api dependencies
    * and checks that the metadata version in the `META-INF/${lib}.kotlin_module` file is compatible with
    * the specified kotlin version.
    * This is version n + 1 thanks to kotlinc n + 1 forward compatibility.
@@ -40,7 +40,7 @@ interface CompatPatrouilleExtension {
   fun checkApiDependencies(severity: Severity)
 
   /**
-   * If [check] is true, registers a `compatPatrouilleCheckRuntimeDependencies` task that walks all the runtime dependencies
+   * If [check] is true, registers a `tapmocCheckRuntimeDependencies` task that walks all the runtime dependencies
    * and checks that `kotlin-stdlib` is not upgraded to a version > n
    *
    * @param severity what to do when a dependency is found to be incompatible.
