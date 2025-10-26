@@ -1,5 +1,5 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.compat.patrouille/compat-patrouille-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.compat.patrouille)
-[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.compat.patrouille/compat-patrouille-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.tapmoc/compat-patrouille-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.tapmoc)
+[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/compat-patrouille-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
 
 
 # 🐾 Compat-Patrouille 🐾
@@ -47,7 +47,7 @@ plugins {
   id("com.android.library")
   // etc...
   // And add the CompatPatrouille plugin
-  id("com.gradleup.compat.patrouille").version("0.1.0")
+  id("com.gradleup.tapmoc").version("0.1.0")
 }
 
 /*
@@ -67,8 +67,8 @@ tapmoc {
 If you have convention plugins, you can also use the Compat-Patrouille without all the plugin ceremony:
 
 ```kotlin
-import compat.patrouille.configureJavaCompatibility
-import compat.patrouille.configureKotlinCompatibility
+import tapmoc.configureJavaCompatibility
+import tapmoc.configureKotlinCompatibility
 
 class ConventionPlugin: Plugin<Project> {
   override fun apply(target: Project) {

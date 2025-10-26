@@ -1,11 +1,11 @@
-package compat.patrouille.internal
+package tapmoc.internal
 
-import compat.patrouille.CompatPatrouilleExtension
-import compat.patrouille.Severity
-import compat.patrouille.configureJavaCompatibility
-import compat.patrouille.configureKotlinCompatibility
-import compat.patrouille.task.registerCheckApiDependenciesTask
-import compat.patrouille.task.registerCheckRuntimeDependenciesTask
+import tapmoc.CompatPatrouilleExtension
+import tapmoc.Severity
+import tapmoc.configureJavaCompatibility
+import tapmoc.configureKotlinCompatibility
+import tapmoc.task.registerCheckApiDependenciesTask
+import tapmoc.task.registerCheckRuntimeDependenciesTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier

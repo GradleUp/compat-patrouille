@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
   alias(libs.plugins.kgp.multiplatform)
-  id("com.gradleup.compat.patrouille")
+  id("com.gradleup.tapmoc")
   id("maven-publish")
 }
 

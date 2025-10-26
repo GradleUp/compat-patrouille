@@ -54,6 +54,6 @@ gratatouille {
   codeGeneration {
     addDependencies.set(false)
   }
-  pluginLocalPublication("com.gradleup.compat.patrouille")
+  pluginLocalPublication("com.gradleup.tapmoc")
 }
 

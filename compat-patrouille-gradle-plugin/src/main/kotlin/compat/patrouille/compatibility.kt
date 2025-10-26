@@ -1,9 +1,9 @@
-package compat.patrouille
+package tapmoc
 
-import compat.patrouille.internal.agp
-import compat.patrouille.internal.configureKotlinJvmTarget
-import compat.patrouille.internal.forEachCompilerOptions
-import compat.patrouille.internal.kotlinExtensionOrNull
+import tapmoc.internal.agp
+import tapmoc.internal.configureKotlinJvmTarget
+import tapmoc.internal.forEachCompilerOptions
+import tapmoc.internal.kotlinExtensionOrNull
 import java.lang.reflect.Method
 import kotlin.text.toInt
 import org.gradle.api.JavaVersion

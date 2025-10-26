@@ -1,6 +1,6 @@
 plugins {
   id("java")
-  id("com.gradleup.compat.patrouille")
+  id("com.gradleup.tapmoc")
   id("check.publication")
 }
 

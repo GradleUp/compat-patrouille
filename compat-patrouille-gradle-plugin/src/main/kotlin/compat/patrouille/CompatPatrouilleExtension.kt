@@ -1,4 +1,4 @@
-package compat.patrouille
+package tapmoc
 
 interface CompatPatrouilleExtension {
   /**

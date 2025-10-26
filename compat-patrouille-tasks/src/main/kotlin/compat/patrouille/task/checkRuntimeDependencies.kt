@@ -1,4 +1,4 @@
-package compat.patrouille.task
+package tapmoc.task
 
 import gratatouille.tasks.GLogger
 import gratatouille.tasks.GOutputFile
