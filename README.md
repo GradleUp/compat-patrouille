@@ -1,5 +1,5 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.tapmoc/tapmoc-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.tapmoc)
-[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/tapmoc-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
+[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/tapmoc-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/tapmoc/)
 
 
 # 🐾 Compat-Patrouille 🐾
