@@ -1,10 +1,10 @@
 plugins {
   alias(libs.plugins.kgp.jvm)
-  id("com.gradleup.compat.patrouille")
+  id("com.gradleup.tapmoc")
   id("check.publication")
 }
 
-compatPatrouille {
+tapmoc {
   java(11)
   kotlin("1.9.0")
 }

@@ -1,5 +1,5 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.compat.patrouille/compat-patrouille-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.compat.patrouille)
-[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.compat.patrouille/compat-patrouille-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.tapmoc/tapmoc-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.tapmoc)
+[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/tapmoc-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/tapmoc/)
 
 
 # 🐾 Compat-Patrouille 🐾
@@ -7,7 +7,7 @@
 The Compat-Patrouille helps you configure your Java/Kotlin compatibility flags: 
 
 ```kotlin
-compatPatrouille {
+tapmoc {
   java(17) // build for Java 17, including source, target and api compatibility
   kotlin("2.1.0") // build for kotlin 2.1.0, including language and api version
 }
@@ -47,7 +47,7 @@ plugins {
   id("com.android.library")
   // etc...
   // And add the CompatPatrouille plugin
-  id("com.gradleup.compat.patrouille").version("0.1.0")
+  id("com.gradleup.tapmoc").version("0.1.0")
 }
 
 /*
@@ -55,7 +55,7 @@ plugins {
  * This code block works regardless of if you're using Kotlin/Android/KMP/etc...
  * You can copy/paste it
  */
-compatPatrouille {
+tapmoc {
   // Java takes an int for simplicity
   java(17)
   // Kotlin takes a string so you have more control of the patch release of the stdlib.
@@ -67,8 +67,8 @@ compatPatrouille {
 If you have convention plugins, you can also use the Compat-Patrouille without all the plugin ceremony:
 
 ```kotlin
-import compat.patrouille.configureJavaCompatibility
-import compat.patrouille.configureKotlinCompatibility
+import tapmoc.configureJavaCompatibility
+import tapmoc.configureKotlinCompatibility
 
 class ConventionPlugin: Plugin<Project> {
   override fun apply(target: Project) {
@@ -84,10 +84,10 @@ That's it, you can now keep on with your life.
 
 Enforcing compiler flags works for your own code but doesn't check your dependencies. They may use incompatible APIs that will crash at runtime and/or produce incompatible metadata that will crash at build time.
 
-You can have compat-patrouille fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
+You can have tapmoc fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
 
 ```kotlin
-compatPatrouille {
+tapmoc {
   // Fail the build if any api dependency exposes incompatible Kotlin metadata.
   checkApiDependencies(Severity.ERROR)
   // Fail the build if any runtime dependency relies on an incompatible kotlin-stdlib version.
@@ -103,7 +103,7 @@ In particular:
 * [non-JVM targets do not support apiVersion/languageVersion](https://youtrack.jetbrains.com/issue/KT-66755/).
 * some targets (like wasmJs) require that the compile time `kotlin-stdlib` version matches the compiler version.
 
-Not only does that mean that compat-patrouille cannot configure compatibility flags for non-JVM targets, it also means compat-patrouille may downgrade some of your dependencies. 
+Not only does that mean that tapmoc cannot configure compatibility flags for non-JVM targets, it also means tapmoc may downgrade some of your dependencies. 
 
 Because it relies on `coreLibrariesVersion` to configure the JVM stdlib version, some of your non-JVM libraries may be older than your compiler version, which may cause issues.
 

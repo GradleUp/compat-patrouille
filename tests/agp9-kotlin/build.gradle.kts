@@ -2,14 +2,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   alias(libs.plugins.agp9.library)
-  id("com.gradleup.compat.patrouille")
+  id("com.gradleup.tapmoc")
   id("check.publication")
 }
 
 val myJvmTarget = 11
 val myKotlinMetadataVersion = "2.0.0"
 
-compatPatrouille {
+tapmoc {
   java(myJvmTarget)
   kotlin(myKotlinMetadataVersion)
 }

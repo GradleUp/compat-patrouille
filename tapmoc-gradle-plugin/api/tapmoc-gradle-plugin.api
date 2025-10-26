@@ -1,0 +1,36 @@
+public abstract interface class tapmoc/CompatPatrouilleExtension {
+	public abstract fun checkApiDependencies (Ltapmoc/Severity;)V
+	public abstract fun checkRuntimeDependencies (Ltapmoc/Severity;)V
+	public abstract fun java (I)V
+	public abstract fun kotlin (Ljava/lang/String;)V
+}
+
+public final class tapmoc/CompatPatrouillePluginKt {
+	public static final fun tapmocPlugin (Lorg/gradle/api/Project;)V
+}
+
+public final class tapmoc/CompatibilityKt {
+	public static final fun configureJavaCompatibility (Lorg/gradle/api/Project;I)V
+	public static final fun configureKotlinCompatibility (Lorg/gradle/api/Project;Ljava/lang/String;)V
+}
+
+public final class tapmoc/Severity : java/lang/Enum {
+	public static final field ERROR Ltapmoc/Severity;
+	public static final field IGNORE Ltapmoc/Severity;
+	public static final field WARNING Ltapmoc/Severity;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ltapmoc/Severity;
+	public static fun values ()[Ltapmoc/Severity;
+}
+
+public abstract class tapmoc/TapmocPlugin : org/gradle/api/Plugin {
+	public fun <init> ()V
+	public synthetic fun apply (Ljava/lang/Object;)V
+	public fun apply (Lorg/gradle/api/Project;)V
+}
+
+public final class tapmoc/internal/Compatibility_kotlinKt {
+	public static final fun forEachCompilerOptions (Lorg/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension;Lkotlin/jvm/functions/Function2;)V
+	public static final fun isKmp (Ljava/lang/Object;)Z
+}
+

@@ -2,12 +2,12 @@ import com.android.build.gradle.internal.tasks.factory.dependsOn
 
 plugins {
   alias(libs.plugins.agp8)
-  id("com.gradleup.compat.patrouille")
+  id("com.gradleup.tapmoc")
   id("check.publication")
 }
 
 val myJvmTarget = 11
-compatPatrouille {
+tapmoc {
   java(myJvmTarget)
 }
 

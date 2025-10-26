@@ -2,7 +2,7 @@ plugins {
   alias(libs.plugins.kgp.jvm)
   alias(libs.plugins.ksp)
   alias(libs.plugins.gratatouille)
-  alias(libs.plugins.compat.patrouille)
+  alias(libs.plugins.tapmoc)
 }
 
 group = "build-logic"

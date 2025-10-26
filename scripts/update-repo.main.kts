@@ -9,6 +9,6 @@ import com.gradleup.librarian.cli.updateRepo
 
 updateRepo(args) {
   file("README.md") {
-    replacePluginVersion("com.gradleup.compat.patrouille")
+    replacePluginVersion("com.gradleup.tapmoc")
   }
 }
