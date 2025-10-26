@@ -1,5 +1,5 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.tapmoc/compat-patrouille-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.tapmoc)
-[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/compat-patrouille-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.tapmoc/tapmoc-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.tapmoc)
+[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/tapmoc-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/compat/patrouille/)
 
 
 # 🐾 Compat-Patrouille 🐾
@@ -84,7 +84,7 @@ That's it, you can now keep on with your life.
 
 Enforcing compiler flags works for your own code but doesn't check your dependencies. They may use incompatible APIs that will crash at runtime and/or produce incompatible metadata that will crash at build time.
 
-You can have compat-patrouille fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
+You can have tapmoc fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
 
 ```kotlin
 tapmoc {
@@ -103,7 +103,7 @@ In particular:
 * [non-JVM targets do not support apiVersion/languageVersion](https://youtrack.jetbrains.com/issue/KT-66755/).
 * some targets (like wasmJs) require that the compile time `kotlin-stdlib` version matches the compiler version.
 
-Not only does that mean that compat-patrouille cannot configure compatibility flags for non-JVM targets, it also means compat-patrouille may downgrade some of your dependencies. 
+Not only does that mean that tapmoc cannot configure compatibility flags for non-JVM targets, it also means tapmoc may downgrade some of your dependencies. 
 
 Because it relies on `coreLibrariesVersion` to configure the JVM stdlib version, some of your non-JVM libraries may be older than your compiler version, which may cause issues.
 
