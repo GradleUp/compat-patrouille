@@ -1,6 +1,6 @@
 package tapmoc.internal
 
-import tapmoc.CompatPatrouilleExtension
+import tapmoc.TapmocExtension
 import tapmoc.Severity
 import tapmoc.configureJavaCompatibility
 import tapmoc.configureKotlinCompatibility
@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
-internal abstract class CompatPatrouilleExtensionImpl(private val project: Project) : CompatPatrouilleExtension {
+internal abstract class TapmocExtensionImpl(private val project: Project) : TapmocExtension {
   var kotlinVersion: String? = null
 
   override fun java(version: Int) {

@@ -1,6 +1,6 @@
 package tapmoc
 
-interface CompatPatrouilleExtension {
+interface TapmocExtension {
   /**
    * Configures the version of Java to target.
    * This version is used as:
