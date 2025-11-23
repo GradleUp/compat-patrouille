@@ -7,7 +7,7 @@ ksp = "2.2.20-2.0.4"
 # Version of KGP tapmoc is compatible with at runtime
 kgp-compile-only = "1.9.0"
 compile-sdk = "36"
-agp9 = "9.0.0-alpha09"
+agp9 = "9.0.0-beta02"
 
 [libraries]
 #noinspection AndroidGradlePluginVersion
