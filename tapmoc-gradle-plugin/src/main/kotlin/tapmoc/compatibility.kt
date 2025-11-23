@@ -22,7 +22,7 @@ fun Project.configureJavaCompatibility(
   javaVersion: Int,
 ) {
   check(extensions.findByName("java") != null) {
-    "CompatPatrouille: cannot configure Java compatibility since the Java plugin is not applied."
+    "Tapmoc: cannot configure Java compatibility since the Java plugin is not applied."
   }
   val agp = project.agp()
   val javaVersion = javaVersion.toJavaVersion()
@@ -69,7 +69,7 @@ fun Project.configureKotlinCompatibility(
 ) {
   val kotlin = kotlinExtensionOrNull
   check(kotlin != null) {
-    "CompatPatrouille: cannot configure Kotlin compatibility since the Kotlin plugin is not applied."
+    "Tapmoc: cannot configure Kotlin compatibility since the Kotlin plugin is not applied."
   }
   val kotlinVersion = KotlinVersion.fromVersion(version.substringBeforeLast("."))
   when (kotlin) {

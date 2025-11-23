@@ -20,5 +20,6 @@ pluginManagement {
 }
 
 
+include(":compat-patrouille-gradle-plugin")
 include(":tapmoc-gradle-plugin")
 include(":tapmoc-tasks")

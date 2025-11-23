@@ -2,7 +2,9 @@ plugins {
   alias(libs.plugins.kgp.jvm)
   alias(libs.plugins.ksp)
   alias(libs.plugins.gratatouille)
-  alias(libs.plugins.tapmoc)
+  // No need to specify the version because we are always included
+  // alongside the main tapmoc build and dependency substitution will kick in.
+  id("com.gradleup.tapmoc")
 }
 
 group = "build-logic"
@@ -25,7 +27,7 @@ gratatouille {
   pluginLocalPublication("check.publication")
 }
 
-compatPatrouille {
+tapmoc {
   java(11)
   kotlin(embeddedKotlinVersion)
 }

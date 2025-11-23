@@ -1,15 +1,15 @@
 package tapmoc
 
-import tapmoc.internal.CompatPatrouilleExtensionImpl
+import tapmoc.internal.TapmocExtensionImpl
 import gratatouille.wiring.GPlugin
 import org.gradle.api.Project
 
 @GPlugin(id = "com.gradleup.tapmoc")
 fun tapmocPlugin(target: Project) {
   target.extensions.create(
-    CompatPatrouilleExtension::class.java,
+    TapmocExtension::class.java,
     "tapmoc",
-    CompatPatrouilleExtensionImpl::class.java,
+    TapmocExtensionImpl::class.java,
     target,
   )
 }

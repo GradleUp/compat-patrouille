@@ -2,9 +2,9 @@
 [![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/tapmoc-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/tapmoc/)
 
 
-# 🐾 Compat-Patrouille 🐾
+# Tapmoc
 
-The Compat-Patrouille helps you configure your Java/Kotlin compatibility flags: 
+Tapmoc helps you configure your Java/Kotlin compatibility flags: 
 
 ```kotlin
 tapmoc {
@@ -28,7 +28,7 @@ Configuring Java/Kotlin compatibility flags is a mundane task that comes with su
 * Is this working with KMP?
 * And more...
 
-La Compat Patrouille handles all of that with just two simple functions!
+Tapmoc handles all of that with just two simple functions!
 
 > [!NOTE]
 > Compatibility flags only work for JVM targets. [See below for more details](#kotlin-multiplatform-kmp). 
@@ -46,7 +46,7 @@ plugins {
   // or
   id("com.android.library")
   // etc...
-  // And add the CompatPatrouille plugin
+  // And add the Tapmoc plugin
   id("com.gradleup.tapmoc").version("0.1.0")
 }
 
@@ -64,7 +64,7 @@ tapmoc {
 }
 ```
 
-If you have convention plugins, you can also use the Compat-Patrouille without all the plugin ceremony:
+If you have convention plugins, you can also use Tapmoc without all the plugin ceremony:
 
 ```kotlin
 import tapmoc.configureJavaCompatibility
