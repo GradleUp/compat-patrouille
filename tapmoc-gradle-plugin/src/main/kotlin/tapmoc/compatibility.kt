@@ -131,7 +131,7 @@ fun Project.configureKotlinCompatibility(
               // do we need native here as well?
             -> {
             it.defaultSourceSet.dependencies {
-              api("org.jetbrains.kotlin:kotlin-stdlib:${getKotlinPluginVersion()}")
+              implementation("org.jetbrains.kotlin:kotlin-stdlib:${getKotlinPluginVersion()}")
             }
           }
           else -> return@configureEach
