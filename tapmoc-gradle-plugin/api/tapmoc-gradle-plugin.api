@@ -25,12 +25,3 @@ public abstract class tapmoc/TapmocPlugin : org/gradle/api/Plugin {
 	public fun apply (Lorg/gradle/api/Project;)V
 }
 
-public final class tapmoc/TapmocPluginKt {
-	public static final fun tapmocPlugin (Lorg/gradle/api/Project;)V
-}
-
-public final class tapmoc/internal/Compatibility_kotlinKt {
-	public static final fun forEachCompilerOptions (Lorg/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension;Lkotlin/jvm/functions/Function2;)V
-	public static final fun isKmp (Ljava/lang/Object;)Z
-}
-

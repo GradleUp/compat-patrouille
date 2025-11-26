@@ -5,7 +5,7 @@ import gratatouille.wiring.GPlugin
 import org.gradle.api.Project
 
 @GPlugin(id = "com.gradleup.tapmoc")
-fun tapmocPlugin(target: Project) {
+internal fun tapmocPlugin(target: Project) {
   target.extensions.create(
     TapmocExtension::class.java,
     "tapmoc",
