@@ -6,6 +6,7 @@ plugins {
 
 tapmoc {
   java(11)
+  kotlin("2.0.0") // This should be a no-op
 }
 
 checkPublication {

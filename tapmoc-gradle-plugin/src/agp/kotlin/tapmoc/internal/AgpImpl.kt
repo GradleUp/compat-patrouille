@@ -5,7 +5,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 
 private class AgpImpl(private val project: Project): Agp {
-  override fun configureCompileJavaTasks(javaVersion: JavaVersion) {
+  override fun javaCompatibility(javaVersion: JavaVersion) {
     val android = project.extensions.findByName("android") as CommonExtension<*,*,*,*,*>?
     if (android != null) {
       android.compileOptions.apply {

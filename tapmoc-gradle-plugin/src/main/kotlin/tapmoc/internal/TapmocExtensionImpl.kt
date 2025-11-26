@@ -1,5 +1,6 @@
 package tapmoc.internal
 
+import gratatouille.wiring.capitalizeFirstLetter
 import tapmoc.TapmocExtension
 import tapmoc.Severity
 import tapmoc.configureJavaCompatibility
@@ -9,9 +10,7 @@ import tapmoc.task.registerCheckRuntimeDependenciesTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
+import org.gradle.api.tasks.SourceSetContainer
 
 internal abstract class TapmocExtensionImpl(private val project: Project) : TapmocExtension {
   var kotlinVersion: String? = null
@@ -21,10 +20,6 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
   }
 
   override fun kotlin(version: String) {
-    val c = version.split(".")
-    require(c.size == 3) {
-      "Cannot parse Kotlin version $version. Expected format is X.Y.Z."
-    }
     kotlinVersion = version
     project.configureKotlinCompatibility(version)
   }
@@ -55,7 +50,9 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       .configureEach { configurationProvider.get().extendsFrom(it) }
     val checkApiDependencies = project.registerCheckApiDependenciesTask(
       warningAsError = project.provider { severity == Severity.ERROR },
-      kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },
+      kotlinVersion = project.provider {
+        kotlinVersion ?: error("Tapmoc: please call Tapmoc::kotlin(version) to specify the target Kotlin version.")
+      },
       taskName = "tapmocCheckApiDependencies",
       compileClasspath = project.files(configurationProvider),
     )
@@ -69,45 +66,44 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
     if (severity == Severity.IGNORE) {
       return
     }
-    val kotlin = project.extensions.findByName("kotlin")
-    val targets = if (kotlin is KotlinMultiplatformExtension) {
-      kotlin.targets
-    } else if (kotlin is KotlinJvmProjectExtension) {
-      listOf(kotlin.target)
-    } else {
+
+    /**
+     * The "sourceSets" extension is added by the JvmEcosystemPlugin, which is applied by
+     * the java, kotlin-jvm and kotlin-kmp (through `JavaBasePlugin`).
+     * Doing this means we are also checking the test dependencies. Might or might not be a problem,
+     * not 100% sure.
+     * At least it's consistent with the apiVersion and languageVersion flags. If this is changed
+     * to only include "main" classpaths, the way we apply flags should probably be changed as well.
+     */
+    val sourceSets = project.extensions.findByType(SourceSetContainer::class.java)
+    if (sourceSets == null) {
       return
     }
+
     val lifecycleTask = project.tasks.register("tapmocCheckRuntimeDependencies")
 
-    targets.forEach { target ->
-      target.compilations.forEach {
-        val configuration = it.runtimeDependencyConfigurationName?.let {
-          project.configurations.named(it)
-        }
-
-        if (configuration != null) {
-          val stdlibVersions = configuration.map {
-            it.incoming.resolutionResult.allComponents
-              .mapNotNull { (it.id as? ModuleComponentIdentifier) }
-              .filter {
-                it.group == "org.jetbrains.kotlin" && it.module == "kotlin-stdlib"
-              }.map {
-                it.version
-              }
+    sourceSets.forEach {
+      val configuration = project.configurations.named(it.runtimeClasspathConfigurationName)
+      val stdlibVersions = configuration.map {
+        it.incoming.resolutionResult.allComponents
+          .mapNotNull { (it.id as? ModuleComponentIdentifier) }
+          .filter {
+            it.group == "org.jetbrains.kotlin" && it.module == "kotlin-stdlib"
+          }.map {
+            it.version
           }
-          val task = project.registerCheckRuntimeDependenciesTask(
-            taskName = "tapmocCheck${target.name}${it.name}RuntimeDependencies",
-            warningAsError = project.provider { severity == Severity.ERROR },
-            kotlinVersion = project.provider { kotlinVersion ?: project.getKotlinPluginVersion() },
-            transitiveKotlinVersions = stdlibVersions,
-          )
-          project.tasks.named("check").configure {
-            it.dependsOn(task)
-          }
-          lifecycleTask.configure {
-            it.dependsOn(task)
-          }
-        }
+      }
+      val task = project.registerCheckRuntimeDependenciesTask(
+        taskName = "tapmocCheck${it.name.capitalizeFirstLetter()}",
+        warningAsError = project.provider { severity == Severity.ERROR },
+        kotlinVersion = project.provider { kotlinVersion ?: error("Tapmoc: please call Tapmoc::kotlin(version) to specify the target Kotlin version.")  },
+        transitiveKotlinVersions = stdlibVersions,
+      )
+      project.tasks.named("check").configure {
+        it.dependsOn(task)
+      }
+      lifecycleTask.configure {
+        it.dependsOn(task)
       }
     }
   }
