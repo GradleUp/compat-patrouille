@@ -1,5 +1,6 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.gradleup.tapmoc/tapmoc-gradle-plugin?style=flat-square)](https://central.sonatype.com/namespace/com.gradleup.tapmoc)
-[![OSS Snapshots](https://img.shields.io/nexus/s/com.gradleup.tapmoc/tapmoc-gradle-plugin?server=https%3A%2F%2Foss.sonatype.org&label=oss-snapshots&style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/tapmoc/)
+[![OSS Snapshots](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Fcom%2Fgradleup%2Ftapmoc%2Ftapmoc-gradle-plugin%2Fmaven-metadata.xml&label=snapshots
+)]([https://oss.sonatype.org/content/repositories/snapshots/com/gradleup/tapmoc/](https://central.sonatype.com/repository/maven-snapshots/com/gradleup/tapmoc/tapmoc-gradle-plugin/maven-metadata.xml))
 
 
 # Tapmoc
