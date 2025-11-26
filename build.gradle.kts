@@ -10,3 +10,7 @@ plugins {
 }
 
 Librarian.root(project)
+
+dependencies {
+  add("nmcpTasks", libs.nmcp.tasks)
+}
