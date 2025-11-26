@@ -34,9 +34,9 @@ agp9-kmp = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp
 #noinspection SimilarGradleDependency
 agp9-library = { id = "com.android.library", version.ref = "agp9" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-librarian = { id = "com.gradleup.librarian", version = "0.2.1-SNAPSHOT-86b179fc0d38da0417477aad4d392792c3a849f9" }
+librarian = { id = "com.gradleup.librarian", version = "0.2.2-SNAPSHOT-44b68f3cb157b53cd19d63b93c6eeae967d1da4a" }
 #noinspection NewerVersionAvailable
-nmcp = { id = "com.gradleup.nmcp", version = "1.0.4-SNAPSHOT-aa74448010e9ec667068e89bdd97ed5edbdf059b" }
+nmcp = { id = "com.gradleup.nmcp", version = "1.3.0-SNAPSHOT-9b56f762a59a1e4532135192a15eeffafc013920" }
 #noinspection NewerVersionAvailable
 tapmoc = { id = "com.gradleup.compat.patrouille", version = "0.0.1-SNAPSHOT-6757526acb8472d098bed30aa17531d7f127571f" }
 gratatouille = { id = "com.gradleup.gratatouille", version.ref = "gratatouille-build-time" }
