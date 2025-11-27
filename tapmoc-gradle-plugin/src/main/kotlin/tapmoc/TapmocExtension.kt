@@ -29,24 +29,32 @@ interface TapmocExtension {
   fun kotlin(version: String)
 
   /**
-   * If [check] is true, registers a `tapmocCheckApiDependencies` task that walks all the api dependencies
-   * and checks that the metadata version in the `META-INF/${lib}.kotlin_module` file is compatible with
+   * Makes `tapmocCheckApiDependencies` walk all the api dependencies transitively
+   * and check that the metadata version in the `META-INF/${lib}.kotlin_module` file is compatible with
    * the specified kotlin version.
    * This is version n + 1 thanks to kotlinc n + 1 forward compatibility.
    *
    * @param severity what to do when a dependency is found to be incompatible.
-   * Defaults to [Severity.IGNORE].
    */
   fun checkApiDependencies(severity: Severity)
 
   /**
-   * If [check] is true, registers a `tapmocCheckRuntimeDependencies` task that walks all the runtime dependencies
+   * Makes `tapmocCheckRuntimeDependencies` walk all the runtime dependencies transitively
    * and checks that `kotlin-stdlib` is not upgraded to a version > n
    *
    * @param severity what to do when a dependency is found to be incompatible.
-   * Defaults to [Severity.IGNORE].
    */
   fun checkRuntimeDependencies(severity: Severity)
+
+  /**
+   * Calls both `checkpiDependencies(severity)` and `checkRuntimeDependencies(severity)`.
+   *
+   * ```kotlin
+   * checkApiDependencies(severity)
+   * checkRuntimeDependencies(severity)
+   * ```
+   */
+  fun checkDependencies(severity: Severity)
 }
 
 enum class Severity {
