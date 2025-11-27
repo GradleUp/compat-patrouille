@@ -1,5 +1,6 @@
 package tapmoc.internal
 
+import org.gradle.api.DefaultTask
 import org.gradle.api.NamedDomainObjectSet
 import tapmoc.TapmocExtension
 import tapmoc.Severity
@@ -7,10 +8,12 @@ import tapmoc.configureJavaCompatibility
 import tapmoc.configureKotlinCompatibility
 import tapmoc.task.registerCheckKotlinMetadataTask
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.attributes.Usage
 import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.TaskProvider
 import tapmoc.task.registerCheckKotlinStdlibVersionsTask
 
 internal abstract class TapmocExtensionImpl(private val project: Project) : TapmocExtension {
@@ -20,23 +23,24 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
 
   private val apiDependencies: Provider<Configuration>
   private val runtimeDependencies: Provider<Configuration>
+  private val checkMetadata: TaskProvider<out DefaultTask>
+  private val checkKotlinStdlib: TaskProvider<out DefaultTask>
 
   init {
-    val kotlinVersionProvider = project.provider {
-      kotlinVersion ?: error("Tapmoc: please call Tapmoc::kotlin(version) to specify the target Kotlin version.")
-    }
+    val kotlinVersionProvider = project.provider { kotlinVersion ?: error("Tapmoc: please call Tapmoc::kotlin(version) to specify the target Kotlin version.") }
     apiDependencies = project.configurations.register("tapmocApiDependencies") {
       it.isCanBeConsumed = false
       it.isCanBeResolved = true
       it.isVisible = false
     }
 
-    val checkMetadata = project.registerCheckKotlinMetadataTask(
+    checkMetadata = project.registerCheckKotlinMetadataTask(
       taskName = "tapmocCheckKotlinMetadata",
       warningAsError = project.provider { kotlinMetadataSeverity == Severity.ERROR },
       kotlinVersion = kotlinVersionProvider,
       files = project.files(apiDependencies),
     )
+    checkMetadata.configure { it.isEnabled = false }
 
     project.tasks.named("check").configure { it.dependsOn(checkMetadata) }
 
@@ -46,7 +50,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       it.isVisible = false
     }
 
-    val checkKotlinStdlib = project.registerCheckKotlinStdlibVersionsTask(
+    checkKotlinStdlib = project.registerCheckKotlinStdlibVersionsTask(
       taskName = "tapmocCheckKotlinStdlibVersions",
       warningAsError = project.provider { kotlinStdlibSeverity == Severity.ERROR },
       kotlinVersion = kotlinVersionProvider,
@@ -60,6 +64,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
           }.toSet()
       },
     )
+    checkKotlinStdlib.configure { it.isEnabled = false }
     project.tasks.named("check").configure { it.dependsOn(checkKotlinStdlib) }
   }
 
@@ -82,6 +87,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       return
     }
     kotlinMetadataSeverity = severity
+    checkMetadata.configure { it.isEnabled = false }
 
     project.getConfigurations(UsageWrapper.JAVA_API).configureEach {
       apiDependencies.get().extendsFrom(it)
@@ -94,6 +100,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
     }
 
     kotlinStdlibSeverity = severity
+    checkKotlinStdlib.configure { it.isEnabled = false }
 
     project.getConfigurations(UsageWrapper.JAVA_RUNTIME).configureEach {
       runtimeDependencies.get().extendsFrom(it)
