@@ -12,11 +12,11 @@ import kotlin.metadata.jvm.UnstableMetadataApi
 
 @OptIn(UnstableMetadataApi::class)
 @GTask
-internal fun checkApiDependencies(
+internal fun checkKotlinMetadata(
   logger: GLogger,
   warningAsError: Boolean,
   kotlinVersion: String,
-  compileClasspath: GClasspath,
+  files: GClasspath,
   output: GOutputFile
 ) {
   val c = kotlinVersion.split(".")
@@ -37,7 +37,7 @@ internal fun checkApiDependencies(
 
   val supportedVersion = JvmMetadataVersion(supportedMajor, supportedMinor, 0)
 
-  compileClasspath.forEach { fileWithPath ->
+  files.forEach { fileWithPath ->
     fileWithPath.file.forEachModuleInfoFile { name, bytes ->
       val metadata = KotlinModuleMetadata.read(bytes)
       if (metadata.version > supportedVersion) {

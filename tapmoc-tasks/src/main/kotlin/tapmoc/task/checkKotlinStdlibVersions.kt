@@ -5,16 +5,16 @@ import gratatouille.tasks.GOutputFile
 import gratatouille.tasks.GTask
 
 @GTask
-internal fun checkRuntimeDependencies(
+internal fun checkKotlinStdlibVersions(
   logger: GLogger,
   warningAsError: Boolean,
   kotlinVersion: String,
-  transitiveKotlinVersions: List<String>,
+  kotlinStdlibVersions: Set<String>,
   output: GOutputFile
 ) {
 
   val supportedVersion = kotlinVersion.toMinorVersion()
-  transitiveKotlinVersions.forEach { version ->
+  kotlinStdlibVersions.forEach { version ->
     if (version.toMinorVersion() > supportedVersion) {
       logger.logOrFail(warningAsError, "Found incompatible kotlin-stdlib: '$version'. Maximum supported is '$supportedVersion'. Use `./gradlew dependencies to investigate the dependency tree.")
     }

@@ -1,20 +1,20 @@
-public final class tapmoc/task/CheckApiDependenciesEntryPoint {
-	public static final field Companion Ltapmoc/task/CheckApiDependenciesEntryPoint$Companion;
+public final class tapmoc/task/CheckKotlinMetadataEntryPoint {
+	public static final field Companion Ltapmoc/task/CheckKotlinMetadataEntryPoint$Companion;
 	public fun <init> ()V
 	public static final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/List;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckApiDependenciesEntryPoint$Companion {
+public final class tapmoc/task/CheckKotlinMetadataEntryPoint$Companion {
 	public final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/List;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckRuntimeDependenciesEntryPoint {
-	public static final field Companion Ltapmoc/task/CheckRuntimeDependenciesEntryPoint$Companion;
+public final class tapmoc/task/CheckKotlinStdlibVersionsEntryPoint {
+	public static final field Companion Ltapmoc/task/CheckKotlinStdlibVersionsEntryPoint$Companion;
 	public fun <init> ()V
-	public static final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/List;Ljava/io/File;)V
+	public static final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/Set;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckRuntimeDependenciesEntryPoint$Companion {
-	public final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/List;Ljava/io/File;)V
+public final class tapmoc/task/CheckKotlinStdlibVersionsEntryPoint$Companion {
+	public final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/Set;Ljava/io/File;)V
 }
 
