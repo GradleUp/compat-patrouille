@@ -1,3 +1,48 @@
+# 0.2.0
+_2025-11-27_
+
+## Project is renamed to `tapmoc`
+
+`tapmoc` is backwards `compat`! Many thanks @JakeWharton for the nice name 💙
+
+You'll need to update your plugin id and extension block:
+
+```kotlin
+plugins {
+  // Replace
+  id("com.gradleup.compat.patrouille").version("0.1.0")
+  // With 
+  id("com.gradleup.tapmoc").version("0.2.0")
+}
+
+// replace 
+compatPatrouille {
+  java(17)
+  kotlin("2.0.0")
+}
+
+// with 
+tapmoc {
+  java(17)
+  kotlin("2.0.0")
+}
+```
+
+## Other changes
+
+* `TapmocExtension::kotlin()` may now be called even if KGP is not present in the build classpath (#42). This makes it easier to use tapmoc in a central convention plugin. It also allows checking runtime dependencies for incompatible usages of `kotlin-stdlib` for Java projects that may rely on Kotlin dependencies.
+* Use `implementation` instead of `api` for the `kotlin-stdlib` configuration of non-JVM tests, fixes a warning when using KGP 2.3.0. (#41)
+* Make the plugin uses lazier Gradle APIs (#33, #34), many thanks @simonlebras.
+
+# 0.1.0
+_2025-10-10_
+Add support for `com.android.kotlin.multiplatform.library` in https://github.com/GradleUp/compat-patrouille/pull/31
+
+# 0.0.3
+_2025-10-06_
+
+Do not configure `JavaCompile` tasks eagerly (https://github.com/GradleUp/compat-patrouille/issues/27)
+
 # 0.0.3
 _2025-10-06_
 
