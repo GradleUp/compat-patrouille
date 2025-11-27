@@ -1,5 +1,5 @@
 import com.gradleup.librarian.gradle.Librarian
-import compat.patrouille.configureKotlinCompatibility
+import tapmoc.configureKotlinCompatibility
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 plugins {
