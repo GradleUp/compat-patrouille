@@ -2,22 +2,23 @@ package tapmoc.internal
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.NamedDomainObjectSet
-import tapmoc.TapmocExtension
-import tapmoc.Severity
-import tapmoc.configureJavaCompatibility
-import tapmoc.configureKotlinCompatibility
-import tapmoc.task.registerCheckKotlinMetadataTask
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.attributes.Usage
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
+import tapmoc.Severity
+import tapmoc.TapmocExtension
+import tapmoc.configureJavaCompatibility
+import tapmoc.configureKotlinCompatibility
+import tapmoc.task.registerCheckJavaClassFilesVersionTask
+import tapmoc.task.registerCheckKotlinMetadataTask
 import tapmoc.task.registerCheckKotlinStdlibVersionsTask
 
 internal abstract class TapmocExtensionImpl(private val project: Project) : TapmocExtension {
   private var kotlinVersion: String? = null
+  private var javaVersion: Int? = null
   private var kotlinMetadataSeverity = Severity.ERROR
   private var kotlinStdlibSeverity = Severity.ERROR
 
@@ -28,6 +29,8 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
 
   init {
     val kotlinVersionProvider = project.provider { kotlinVersion ?: error("Tapmoc: please call Tapmoc::kotlin(version) to specify the target Kotlin version.") }
+    val javaVersionProvider = project.provider { javaVersion ?: error("Tapmoc: please call Tapmoc::java(version) to specify the target Java version.") }
+
     apiDependencies = project.configurations.register("tapmocApiDependencies") {
       it.isCanBeConsumed = false
       it.isCanBeResolved = true
@@ -66,9 +69,18 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
     )
     checkKotlinStdlib.configure { it.isEnabled = false }
     project.tasks.named("check").configure { it.dependsOn(checkKotlinStdlib) }
+
+    val checkJavaClassFilesVersionTask = project.registerCheckJavaClassFilesVersionTask(
+      taskName = "tapmocCheckJavaClassFilesVersion",
+      warningAsError = project.provider { kotlinStdlibSeverity == Severity.ERROR },
+      javaVersion = javaVersionProvider,
+      jarFiles = project.files(apiDependencies, runtimeDependencies)
+    )
+    project.tasks.named("check").configure { it.dependsOn(checkJavaClassFilesVersionTask) }
   }
 
   override fun java(version: Int) {
+    javaVersion = version
     project.configureJavaCompatibility(version)
   }
 
