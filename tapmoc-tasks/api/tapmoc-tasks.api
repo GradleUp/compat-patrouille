@@ -1,3 +1,13 @@
+public final class tapmoc/task/CheckJavaClassFilesVersionEntryPoint {
+	public static final field Companion Ltapmoc/task/CheckJavaClassFilesVersionEntryPoint$Companion;
+	public fun <init> ()V
+	public static final fun run (Ljava/util/function/BiConsumer;ZLjava/util/List;ILjava/io/File;)V
+}
+
+public final class tapmoc/task/CheckJavaClassFilesVersionEntryPoint$Companion {
+	public final fun run (Ljava/util/function/BiConsumer;ZLjava/util/List;ILjava/io/File;)V
+}
+
 public final class tapmoc/task/CheckKotlinMetadataEntryPoint {
 	public static final field Companion Ltapmoc/task/CheckKotlinMetadataEntryPoint$Companion;
 	public fun <init> ()V

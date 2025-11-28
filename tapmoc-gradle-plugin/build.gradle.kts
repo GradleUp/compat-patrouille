@@ -50,6 +50,9 @@ dependencies {
   compileOnly(libs.gradle.api)
   implementation(libs.gratatouille.wiring.runtime)
   gratatouille(project(":tapmoc-tasks"))
+
+  testImplementation(gradleTestKit())
+  testImplementation(kotlin("test"))
 }
 
 gratatouille {
@@ -59,3 +62,14 @@ gratatouille {
   pluginLocalPublication("com.gradleup.tapmoc")
 }
 
+tasks.withType<Test>().configureEach {
+  dependsOn("publishAllPublicationsToLocalRepository")
+  dependsOn(":tapmoc-tasks:publishAllPublicationsToLocalRepository")
+}
+
+extensions.getByType<PublishingExtension>().repositories {
+  maven {
+    name = "local"
+    url = rootDir.resolve("build/m2").toURI()
+  }
+}
