@@ -16,6 +16,7 @@ import tapmoc.configureKotlinCompatibility
 import tapmoc.task.registerCheckJavaClassFilesVersionTask
 import tapmoc.task.registerCheckKotlinMetadataTask
 import tapmoc.task.registerCheckKotlinStdlibVersionsTask
+import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 internal abstract class TapmocExtensionImpl(private val project: Project) : TapmocExtension {
   private var kotlinMetadataSeverity = Severity.ERROR
@@ -43,8 +44,6 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       files = project.files(apiDependencies),
     )
 
-    project.tasks.named("check").configure { it.dependsOn(checkMetadata) }
-
     runtimeDependencies = project.configurations.register("tapmocRuntimeDependencies") {
       it.isCanBeConsumed = false
       it.isCanBeResolved = true
@@ -66,15 +65,20 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       },
     )
 
-    project.tasks.named("check").configure { it.dependsOn(checkKotlinStdlib) }
-
     val checkJavaClassFilesVersionTask = project.registerCheckJavaClassFilesVersionTask(
       taskName = "tapmocCheckJavaClassFilesVersion",
       warningAsError = project.provider { kotlinStdlibSeverity == Severity.ERROR },
       javaVersion = javaVersionProvider,
       jarFiles = project.files(apiDependencies, runtimeDependencies)
     )
-    project.tasks.named("check").configure { it.dependsOn(checkJavaClassFilesVersionTask) }
+
+    project.plugins.withType(LifecycleBasePlugin::class.java) {
+      project.tasks.named(LifecycleBasePlugin.CHECK_TASK_NAME).configure {
+        it.dependsOn(checkKotlinStdlib)
+        it.dependsOn(checkMetadata)
+        it.dependsOn(checkJavaClassFilesVersionTask)
+      }
+    }
   }
 
   override fun java(version: Int) {
