@@ -12,6 +12,7 @@ Librarian.module(project)
 
 dependencies {
   implementation(libs.kotlin.metadata)
+  implementation(libs.asm)
   implementation(libs.gratatouille.tasks.runtime)
 }
 
@@ -22,5 +23,12 @@ gratatouille {
   codeGeneration {
     classLoaderIsolation()
     addDependencies.set(false)
+  }
+}
+
+extensions.getByType<PublishingExtension>().repositories {
+  maven {
+    name = "local"
+    url = rootDir.resolve("build/m2").toURI()
   }
 }
