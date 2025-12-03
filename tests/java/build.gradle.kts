@@ -1,6 +1,6 @@
 plugins {
-  id("java")
   id("com.gradleup.tapmoc")
+  id("java")
   id("check.publication")
 }
 

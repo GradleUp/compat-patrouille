@@ -1,6 +1,6 @@
 plugins {
-  alias(libs.plugins.kgp.jvm)
   id("com.gradleup.tapmoc")
+  alias(libs.plugins.kgp.jvm)
   id("check.publication")
 }
 
