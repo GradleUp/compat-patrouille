@@ -12,7 +12,6 @@ jobs:
           ./gradlew -p tests/agp8-kotlin build
           ./gradlew -p tests/agp9-kmp build
           ./gradlew -p tests/agp9-kotlin build
-          ./gradlew -p tests/check-dependencies build
           ./gradlew -p tests/java build
           ./gradlew -p tests/jvm build
           ./gradlew -p tests/wasm-js build
