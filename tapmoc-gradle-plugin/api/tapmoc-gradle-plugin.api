@@ -14,6 +14,7 @@ public final class tapmoc/Severity : java/lang/Enum {
 
 public abstract interface class tapmoc/TapmocExtension {
 	public abstract fun checkApiDependencies (Ltapmoc/Severity;)V
+	public abstract fun checkDependencies ()V
 	public abstract fun checkDependencies (Ltapmoc/Severity;)V
 	public abstract fun checkRuntimeDependencies (Ltapmoc/Severity;)V
 	public abstract fun java (I)V

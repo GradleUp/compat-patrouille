@@ -10,7 +10,7 @@ import org.objectweb.asm.Opcodes
 import java.util.zip.ZipInputStream
 
 @GTask
-internal fun checkJavaClassFilesVersion(
+internal fun tapmocCheckClassFileVersions(
   logger: GLogger,
   warningAsError: Boolean,
   jarFiles: GInputFiles,
@@ -18,7 +18,7 @@ internal fun checkJavaClassFilesVersion(
   output: GOutputFile
 ) {
   if (javaVersion == null) {
-    output.writeText("Tapmoc: skip checking class files version as no target java version is defined")
+    output.writeText("Tapmoc: skip checking class file versions as no target Java version is defined")
     return
   }
   val maxAllowedClassFileVersion = 44 + javaVersion

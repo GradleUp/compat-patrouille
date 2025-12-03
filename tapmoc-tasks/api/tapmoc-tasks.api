@@ -1,30 +1,30 @@
-public final class tapmoc/task/CheckJavaClassFilesVersionEntryPoint {
-	public static final field Companion Ltapmoc/task/CheckJavaClassFilesVersionEntryPoint$Companion;
+public final class tapmoc/task/TapmocCheckClassFileVersionsEntryPoint {
+	public static final field Companion Ltapmoc/task/TapmocCheckClassFileVersionsEntryPoint$Companion;
 	public fun <init> ()V
 	public static final fun run (Ljava/util/function/BiConsumer;ZLjava/util/List;Ljava/lang/Integer;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckJavaClassFilesVersionEntryPoint$Companion {
+public final class tapmoc/task/TapmocCheckClassFileVersionsEntryPoint$Companion {
 	public final fun run (Ljava/util/function/BiConsumer;ZLjava/util/List;Ljava/lang/Integer;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckKotlinMetadataEntryPoint {
-	public static final field Companion Ltapmoc/task/CheckKotlinMetadataEntryPoint$Companion;
+public final class tapmoc/task/TapmocCheckKotlinMetadataVersionsEntryPoint {
+	public static final field Companion Ltapmoc/task/TapmocCheckKotlinMetadataVersionsEntryPoint$Companion;
 	public fun <init> ()V
 	public static final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/List;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckKotlinMetadataEntryPoint$Companion {
+public final class tapmoc/task/TapmocCheckKotlinMetadataVersionsEntryPoint$Companion {
 	public final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/List;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckKotlinStdlibVersionsEntryPoint {
-	public static final field Companion Ltapmoc/task/CheckKotlinStdlibVersionsEntryPoint$Companion;
+public final class tapmoc/task/TapmocCheckKotlinStdlibVersionsEntryPoint {
+	public static final field Companion Ltapmoc/task/TapmocCheckKotlinStdlibVersionsEntryPoint$Companion;
 	public fun <init> ()V
 	public static final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/Set;Ljava/io/File;)V
 }
 
-public final class tapmoc/task/CheckKotlinStdlibVersionsEntryPoint$Companion {
+public final class tapmoc/task/TapmocCheckKotlinStdlibVersionsEntryPoint$Companion {
 	public final fun run (Ljava/util/function/BiConsumer;ZLjava/lang/String;Ljava/util/Set;Ljava/io/File;)V
 }
 

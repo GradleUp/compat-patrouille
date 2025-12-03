@@ -5,7 +5,7 @@ import gratatouille.tasks.GOutputFile
 import gratatouille.tasks.GTask
 
 @GTask
-internal fun checkKotlinStdlibVersions(
+internal fun tapmocCheckKotlinStdlibVersions(
   logger: GLogger,
   warningAsError: Boolean,
   kotlinVersion: String?,
@@ -13,7 +13,7 @@ internal fun checkKotlinStdlibVersions(
   output: GOutputFile
 ) {
   if (kotlinVersion == null) {
-    output.writeText("Tapmoc: skip checking kotlin metadata version as no target kotlin version is defined")
+    output.writeText("Tapmoc: skip checking Kotlin stdlib versions as no target Kotlin version is defined")
     return
   }
 

@@ -107,7 +107,7 @@ fun checkPublication(m2Files: GInputFiles, jvmTarget: Int, kotlinMetadataVersion
 
 @OptIn(UnstableMetadataApi::class)
 private fun checkJarFile(name: String, inputStream: InputStream, jvmTarget: Int, kotlinMetadataVersion: String?) {
-  println("checkJarFile '$name'")
+  //println("checkJarFile '$name'")
   ZipInputStream(inputStream).let { zis ->
     var entry = zis.nextEntry
     while (entry != null) {

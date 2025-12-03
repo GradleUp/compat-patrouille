@@ -62,6 +62,9 @@ tapmoc {
   // Kotlin takes a string so you have more control of the patch release of the stdlib.
   // languageVersion/apiVersion are configured with the minor version only.
   kotlin("2.1.0")
+
+  // Optional: fail the build if any api dependency exposes incompatible Kotlin metadata, Kotlin stdlib or Java bytecode version.
+  checkDependencies()
 }
 ```
 
@@ -85,14 +88,12 @@ That's it, you can now keep on with your life.
 
 Enforcing compiler flags works for your own code but doesn't check your dependencies. They may use incompatible APIs that will crash at runtime and/or produce incompatible metadata that will crash at build time.
 
-You can have tapmoc fail in such cases with `checkApiDependencies` or `checkRuntimeDependencies`:
+You can have tapmoc fail in such cases with `checkDependencies`:
 
 ```kotlin
 tapmoc {
-  // Fail the build if any api dependency exposes incompatible Kotlin metadata.
-  checkApiDependencies(Severity.ERROR)
-  // Fail the build if any runtime dependency relies on an incompatible kotlin-stdlib version.
-  checkRuntimeDependencies(Severity.ERROR)
+  // Fail the build if any api dependency exposes incompatible Kotlin metadata, Kotlin stdlib or Java bytecode version.
+  checkDependencies()
 }
 ```
 

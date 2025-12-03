@@ -12,7 +12,7 @@ import kotlin.metadata.jvm.UnstableMetadataApi
 
 @OptIn(UnstableMetadataApi::class)
 @GTask
-internal fun checkKotlinMetadata(
+internal fun tapmocCheckKotlinMetadataVersions(
   logger: GLogger,
   warningAsError: Boolean,
   kotlinVersion: String?,
@@ -20,7 +20,7 @@ internal fun checkKotlinMetadata(
   output: GOutputFile
 ) {
   if (kotlinVersion == null) {
-    output.writeText("Tapmoc: skip checking kotlin metadata version as no target kotlin version is defined")
+    output.writeText("Tapmoc: skip checking Kotlin metadata versions as no target Kotlin version is defined")
     return
   }
 

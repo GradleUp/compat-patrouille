@@ -9,7 +9,7 @@ interface TapmocExtension {
    * - release (if not on android)
    *
    * @param version the version of Java to target.
-   * Examples: 8, 11, 17, 21, 24,...
+   * Examples: 8, 11, 17, 21, 24, ...
    */
   fun java(version: Int)
 
@@ -24,37 +24,37 @@ interface TapmocExtension {
    * @param version the version of Kotlin to target.
    * This is a string in case you need a specific minor version in `coreLibrariesVersion`
    *
-   * Examples: "1.9.0", "1.9.22", "2.0.21", "2.1.20",...
+   * Examples: "1.9.0", "1.9.22", "2.0.21", "2.1.20", ...
    */
   fun kotlin(version: String)
 
-  /**
-   * Makes `tapmocCheckApiDependencies` walk all the api dependencies transitively
-   * and check that the metadata version in the `META-INF/${lib}.kotlin_module` file is compatible with
-   * the specified kotlin version.
-   * This is version n + 1 thanks to kotlinc n + 1 forward compatibility.
-   *
-   * @param severity what to do when a dependency is found to be incompatible.
-   */
+  @Deprecated("Use checkDependencies instead.", ReplaceWith("checkDependencies(severity)"))
   fun checkApiDependencies(severity: Severity)
 
-  /**
-   * Makes `tapmocCheckRuntimeDependencies` walk all the runtime dependencies transitively
-   * and checks that `kotlin-stdlib` is not upgraded to a version > n
-   *
-   * @param severity what to do when a dependency is found to be incompatible.
-   */
+  @Deprecated("Use checkDependencies instead.", ReplaceWith("checkDependencies(severity)"))
   fun checkRuntimeDependencies(severity: Severity)
 
   /**
-   * Calls both `checkpiDependencies(severity)` and `checkRuntimeDependencies(severity)`.
+   * Walks the consumable configurations exposing a `java-api` or `java-runtime` [usage attribute](https://docs.gradle.org/9.2.1/javadoc/org/gradle/api/attributes/Usage.html)
+   * and checks that dependencies are compatible with the target [java] and [kotlin] values:
    *
-   * ```kotlin
-   * checkApiDependencies(severity)
-   * checkRuntimeDependencies(severity)
-   * ```
+   * - checks that `kotlin-stdlib` is always <= targetKotlinVersion (`java-runtime` only)
+   * - checks that Kotlin metadata is always <= targetKotlinVersion + 1 (`java-api` only).
+   * Note: it is `targetKotlinVersion + 1` because Kotlin has a [best effort n + 1 forward compatibility guarantee](https://kotlinlang.org/docs/kotlin-evolution-principles.html#evolving-the-binary-format).
+   * - checks that the Java class files version is always <= targetJavaVersion
    */
   fun checkDependencies(severity: Severity)
+
+  /**
+   * Walks the consumable configurations exposing a `java-api` or `java-runtime` [usage attribute](https://docs.gradle.org/9.2.1/javadoc/org/gradle/api/attributes/Usage.html)
+   * and checks that dependencies are compatible with the target [java] and [kotlin] values:
+   *
+   * - checks that `kotlin-stdlib` is always <= targetKotlinVersion (`java-runtime` only)
+   * - checks that Kotlin metadata is always <= targetKotlinVersion + 1 (`java-api` only).
+   * Note: it is `targetKotlinVersion + 1` because Kotlin has a [best effort n + 1 forward compatibility guarantee](https://kotlinlang.org/docs/kotlin-evolution-principles.html#evolving-the-binary-format).
+   * - checks that the Java class files version is always <= targetJavaVersion
+   */
+  fun checkDependencies()
 }
 
 enum class Severity {
