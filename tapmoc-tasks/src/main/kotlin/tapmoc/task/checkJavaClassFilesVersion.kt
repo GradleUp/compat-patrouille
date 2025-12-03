@@ -14,9 +14,13 @@ internal fun checkJavaClassFilesVersion(
   logger: GLogger,
   warningAsError: Boolean,
   jarFiles: GInputFiles,
-  javaVersion: Int,
+  javaVersion: Int?,
   output: GOutputFile
 ) {
+  if (javaVersion == null) {
+    output.writeText("Tapmoc: skip checking class files version as no target java version is defined")
+    return
+  }
   val maxAllowedClassFileVersion = 44 + javaVersion
 
   jarFiles.forEach { fileWithPath ->

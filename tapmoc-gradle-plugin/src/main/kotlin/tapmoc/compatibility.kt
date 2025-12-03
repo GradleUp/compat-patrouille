@@ -22,6 +22,7 @@ fun Project.configureJavaCompatibility(
       it.options.release.set(javaVersion)
     }
   }
+
   /**
    * Set the source and target compatibility for AGP (if any).
    */

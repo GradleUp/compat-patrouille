@@ -15,10 +15,15 @@ import kotlin.metadata.jvm.UnstableMetadataApi
 internal fun checkKotlinMetadata(
   logger: GLogger,
   warningAsError: Boolean,
-  kotlinVersion: String,
+  kotlinVersion: String?,
   files: GClasspath,
   output: GOutputFile
 ) {
+  if (kotlinVersion == null) {
+    output.writeText("Tapmoc: skip checking kotlin metadata version as no target kotlin version is defined")
+    return
+  }
+
   val c = kotlinVersion.split(".")
   require(c.size == 3) {
     "Cannot parse Kotlin version $kotlinVersion. Expected format is X.Y.Z."

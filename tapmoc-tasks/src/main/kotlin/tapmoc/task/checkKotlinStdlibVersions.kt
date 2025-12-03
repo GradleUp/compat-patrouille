@@ -8,10 +8,14 @@ import gratatouille.tasks.GTask
 internal fun checkKotlinStdlibVersions(
   logger: GLogger,
   warningAsError: Boolean,
-  kotlinVersion: String,
+  kotlinVersion: String?,
   kotlinStdlibVersions: Set<String>,
   output: GOutputFile
 ) {
+  if (kotlinVersion == null) {
+    output.writeText("Tapmoc: skip checking kotlin metadata version as no target kotlin version is defined")
+    return
+  }
 
   val supportedVersion = kotlinVersion.toMinorVersion()
   kotlinStdlibVersions.forEach { version ->

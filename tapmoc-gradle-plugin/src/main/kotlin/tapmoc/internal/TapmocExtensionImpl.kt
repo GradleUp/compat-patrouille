@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.attributes.Usage
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
 import tapmoc.Severity
@@ -17,8 +18,6 @@ import tapmoc.task.registerCheckKotlinMetadataTask
 import tapmoc.task.registerCheckKotlinStdlibVersionsTask
 
 internal abstract class TapmocExtensionImpl(private val project: Project) : TapmocExtension {
-  private var kotlinVersion: String? = null
-  private var javaVersion: Int? = null
   private var kotlinMetadataSeverity = Severity.ERROR
   private var kotlinStdlibSeverity = Severity.ERROR
 
@@ -27,10 +26,10 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
   private val checkMetadata: TaskProvider<out DefaultTask>
   private val checkKotlinStdlib: TaskProvider<out DefaultTask>
 
-  init {
-    val kotlinVersionProvider = project.provider { kotlinVersion ?: error("Tapmoc: please call Tapmoc::kotlin(version) to specify the target Kotlin version.") }
-    val javaVersionProvider = project.provider { javaVersion ?: error("Tapmoc: please call Tapmoc::java(version) to specify the target Java version.") }
+  abstract val kotlinVersionProvider: Property<String>
+  abstract val javaVersionProvider: Property<Int>
 
+  init {
     apiDependencies = project.configurations.register("tapmocApiDependencies") {
       it.isCanBeConsumed = false
       it.isCanBeResolved = true
@@ -43,7 +42,6 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       kotlinVersion = kotlinVersionProvider,
       files = project.files(apiDependencies),
     )
-    checkMetadata.configure { it.isEnabled = false }
 
     project.tasks.named("check").configure { it.dependsOn(checkMetadata) }
 
@@ -67,7 +65,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
           }.toSet()
       },
     )
-    checkKotlinStdlib.configure { it.isEnabled = false }
+
     project.tasks.named("check").configure { it.dependsOn(checkKotlinStdlib) }
 
     val checkJavaClassFilesVersionTask = project.registerCheckJavaClassFilesVersionTask(
@@ -80,12 +78,12 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
   }
 
   override fun java(version: Int) {
-    javaVersion = version
+    javaVersionProvider.set(version)
     project.configureJavaCompatibility(version)
   }
 
   override fun kotlin(version: String) {
-    kotlinVersion = version
+    kotlinVersionProvider.set(version)
     project.configureKotlinCompatibility(version)
   }
 
@@ -99,7 +97,6 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       return
     }
     kotlinMetadataSeverity = severity
-    checkMetadata.configure { it.isEnabled = true }
 
     project.getConfigurations(UsageWrapper.JAVA_API).configureEach {
       apiDependencies.get().extendsFrom(it)
@@ -110,9 +107,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
     if (severity == Severity.IGNORE) {
       return
     }
-
     kotlinStdlibSeverity = severity
-    checkKotlinStdlib.configure { it.isEnabled = true }
 
     project.getConfigurations(UsageWrapper.JAVA_RUNTIME).configureEach {
       runtimeDependencies.get().extendsFrom(it)
