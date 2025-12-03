@@ -87,7 +87,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
       return
     }
     kotlinMetadataSeverity = severity
-    checkMetadata.configure { it.isEnabled = false }
+    checkMetadata.configure { it.isEnabled = true }
 
     project.getConfigurations(UsageWrapper.JAVA_API).configureEach {
       apiDependencies.get().extendsFrom(it)
@@ -100,7 +100,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
     }
 
     kotlinStdlibSeverity = severity
-    checkKotlinStdlib.configure { it.isEnabled = false }
+    checkKotlinStdlib.configure { it.isEnabled = true }
 
     project.getConfigurations(UsageWrapper.JAVA_RUNTIME).configureEach {
       runtimeDependencies.get().extendsFrom(it)
