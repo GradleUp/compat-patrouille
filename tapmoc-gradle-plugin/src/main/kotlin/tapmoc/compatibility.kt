@@ -36,7 +36,7 @@ fun Project.configureKotlinCompatibility(
   version: String,
 ) {
   require(version.split(".").size == 3) {
-    "Cannot parse Kotlin version '$version'. Expected format is X.Y.Z."
+    "Tapmoc: cannot parse Kotlin version '$version'. Expected format is X.Y.Z."
   }
 
   kgp()?.kotlinCompatibility(version)
