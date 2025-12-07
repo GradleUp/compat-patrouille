@@ -1,5 +1,6 @@
 package tapmoc.internal
 
+import com.android.tools.r8.internal.bl
 import org.gradle.api.NamedDomainObjectSet
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -101,7 +102,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
     }
     kotlinMetadataSeverity = severity
 
-    project.getConfigurations(UsageWrapper.JAVA_API).configureEach {
+    project.onEachOutgoingConfiguration(UsageWrapper.JAVA_API) {
       apiDependencies.get().extendsFrom(it)
     }
   }
@@ -113,7 +114,7 @@ internal abstract class TapmocExtensionImpl(private val project: Project) : Tapm
     }
     kotlinStdlibSeverity = severity
 
-    project.getConfigurations(UsageWrapper.JAVA_RUNTIME).configureEach {
+    project.onEachOutgoingConfiguration(UsageWrapper.JAVA_RUNTIME) {
       runtimeDependencies.get().extendsFrom(it)
     }
   }
@@ -126,12 +127,32 @@ private enum class UsageWrapper(val value: String) {
 
 /**
  * Retrieves the outgoing configurations for this project and the specific usage.
+ * Because plugins may be applied at any time, and they set the attributes, we need to iterate
+ * the ConfigurationContainer only after they have been applied
  *
- * We currently only check the JVM configurations since .klib do not support compatibility flags yet.
+ * We currently only check the JVM configurations since .klib files do not support compatibility flags yet.
  */
-private fun Project.getConfigurations(usage: UsageWrapper): NamedDomainObjectSet<Configuration> {
-  return configurations.matching {
-    it.isCanBeConsumed
-      && it.attributes.getAttribute(Usage.USAGE_ATTRIBUTE)?.name == usage.value
+private fun Project.onEachOutgoingConfiguration(usage: UsageWrapper, block: (Configuration) -> Unit) {
+  var hasKgpOrJava = false
+
+  val callback = {
+    if (!hasKgpOrJava) {
+      hasKgpOrJava = true
+      configurations.matching {
+        it.isCanBeConsumed
+          && it.attributes.getAttribute(Usage.USAGE_ATTRIBUTE)?.name == usage.value
+      }.configureEach {
+        block(it)
+      }
+    }
+  }
+
+  onKgp {
+    callback()
+  }
+  pluginManager.withPlugin("java") {
+    callback()
   }
 }
+
+

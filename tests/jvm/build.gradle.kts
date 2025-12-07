@@ -1,12 +1,14 @@
 plugins {
   id("com.gradleup.tapmoc")
-  alias(libs.plugins.kgp.jvm).apply(false)
+  id("org.jetbrains.kotlin.jvm").version("2.2.0").apply(false)
   id("check.publication")
+  id("maven-publish")
 }
 
 tapmoc {
   java(11)
   kotlin("1.9.0")
+  checkDependencies()
 }
 
 checkPublication {
