@@ -3,7 +3,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-  alias(libs.plugins.kgp.multiplatform)
+  id("org.jetbrains.kotlin.multiplatform")
   id("com.gradleup.tapmoc")
   id("maven-publish")
 }

@@ -1,6 +1,7 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-  alias(libs.plugins.agp9.kmp)
-  alias(libs.plugins.kgp.multiplatform)
+  id("com.android.library")
   id("com.gradleup.tapmoc")
   id("check.publication")
 }
@@ -12,12 +13,11 @@ tapmoc {
   java(myJvmTarget)
   kotlin(myKotlinMetadataVersion)
 }
-
-kotlin {
-  jvm()
-  android {
-    namespace = "com.example"
-    compileSdk = libs.versions.compile.sdk.get().toInt()
+android {
+  publishing {
+    singleVariant("release") {
+      withSourcesJar()
+    }
   }
 }
 
@@ -27,4 +27,16 @@ checkPublication {
   kotlinMetadataVersion.set("1.9.9999")
 }
 
+android {
+  defaultConfig {
+    namespace = "com.example"
+    compileSdk = libs.versions.compile.sdk.get().toInt()
+  }
+}
 
+afterEvaluate {
+  tasks.named("compileReleaseKotlin").get().apply {
+    this as KotlinCompile
+//    println("languageVersion=${this.compilerOptions.languageVersion.get()}")
+  }
+}

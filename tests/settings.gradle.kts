@@ -5,9 +5,13 @@ pluginManagement {
   }
 }
 
-includeBuild("../../")
-includeBuild("../build-logic")
+includeBuild("../")
+includeBuild("build-logic")
 
-fun toto(settings: Settings) {
-  settings.layout.rootDirectory.files()
-}
+include(
+  ":wasm-js",
+  ":jvm",
+  ":java",
+  ":agp8-java",
+  ":agp8-kotlin"
+)

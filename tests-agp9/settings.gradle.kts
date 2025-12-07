@@ -5,9 +5,10 @@ pluginManagement {
   }
 }
 
-includeBuild("../../")
-includeBuild("../build-logic")
+includeBuild("../")
+includeBuild("../tests/build-logic")
 
-fun toto(settings: Settings) {
-  settings.layout.rootDirectory.files()
-}
+include(
+  ":agp9-kmp",
+  ":agp9-kotlin",
+)

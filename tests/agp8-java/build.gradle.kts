@@ -1,7 +1,7 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
 plugins {
-  alias(libs.plugins.agp8)
+  id("com.android.library")
   id("com.gradleup.tapmoc")
   id("check.publication")
 }

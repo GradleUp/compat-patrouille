@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  alias(libs.plugins.agp8)
-  alias(libs.plugins.kgp.android)
+  id("com.android.library")
+  id("org.jetbrains.kotlin.android")
   id("com.gradleup.tapmoc")
   id("check.publication")
 }
