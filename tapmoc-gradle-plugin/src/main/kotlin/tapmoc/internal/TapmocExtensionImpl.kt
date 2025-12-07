@@ -136,25 +136,22 @@ private fun Project.onEachOutgoingConfiguration(usage: UsageWrapper, block: (Con
   var hasKgpOrJava = false
 
   val callback = {
-    configurations.matching {
-      it.isCanBeConsumed
-        && it.attributes.getAttribute(Usage.USAGE_ATTRIBUTE)?.name == usage.value
-    }.configureEach {
-      block(it)
+    if (!hasKgpOrJava) {
+      hasKgpOrJava = true
+      configurations.matching {
+        it.isCanBeConsumed
+          && it.attributes.getAttribute(Usage.USAGE_ATTRIBUTE)?.name == usage.value
+      }.configureEach {
+        block(it)
+      }
     }
   }
 
   onKgp {
-    if (!hasKgpOrJava) {
-      hasKgpOrJava = true
-      callback()
-    }
+    callback()
   }
   pluginManager.withPlugin("java") {
-    if (!hasKgpOrJava) {
-      hasKgpOrJava = true
-      callback()
-    }
+    callback()
   }
 }
 
