@@ -18,6 +18,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.Delete
+import org.gradle.language.base.plugins.LifecycleBasePlugin
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.Opcodes
@@ -40,22 +41,20 @@ abstract class CheckPublicationExtension(project: Project) {
               it.url = uri(file("build/m2"))
             }
           }
-          publications {
-            if (project.extensions.findByName("kotlin")?.javaClass?.simpleName?.startsWith("KotlinMultiplatformExtension") != true) {
-              it.create("maven", MavenPublication::class.java) { publication ->
-                /**
-                 * Doc says to use afterEvaluate 🤷‍♂️
-                 * https://developer.android.com/build/publish-library/upload-library
-                 */
-                afterEvaluate {
-                  var component: SoftwareComponent? = components.findByName("java")
-                  if (component == null) {
-                    component = components.findByName("release")
-                  }
-                  check(component != null) {
-                    "No 'java' or 'release' component found"
-                  }
-                  publication.from(component)
+          publications { publications ->
+            pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
+              publications.create("maven", MavenPublication::class.java) { publication ->
+                publication.from(components.getByName("java"))
+              }
+            }
+            pluginManager.withPlugin("com.android.library") {
+              /**
+               * Doc says to use afterEvaluate 🤷‍♂️
+               * https://developer.android.com/build/publish-library/upload-library
+               */
+              afterEvaluate {
+                publications.create("maven", MavenPublication::class.java) { publication ->
+                  publication.from(components.findByName("release"))
                 }
               }
             }
@@ -79,8 +78,10 @@ abstract class CheckPublicationExtension(project: Project) {
           it.dependsOn("publishAllPublicationsToTestRepository")
         }
 
-        tasks.named("check") {
-          it.dependsOn(checkPublication)
+        project.plugins.withType(LifecycleBasePlugin::class.java) {
+          project.tasks.named(LifecycleBasePlugin.CHECK_TASK_NAME).configure {
+            it.dependsOn(checkPublication)
+          }
         }
       }
     }
