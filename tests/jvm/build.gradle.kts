@@ -1,6 +1,6 @@
 plugins {
   id("com.gradleup.tapmoc")
-  alias(libs.plugins.kgp.jvm)
+  alias(libs.plugins.kgp.jvm).apply(false)
   id("check.publication")
 }
 
@@ -13,3 +13,5 @@ checkPublication {
   jvmTarget.set(11)
   kotlinMetadataVersion.set("1.9.0")
 }
+
+pluginManager.apply("org.jetbrains.kotlin.jvm")

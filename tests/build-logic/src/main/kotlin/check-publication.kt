@@ -41,22 +41,20 @@ abstract class CheckPublicationExtension(project: Project) {
               it.url = uri(file("build/m2"))
             }
           }
-          publications {
-            if (project.extensions.findByName("kotlin")?.javaClass?.simpleName?.startsWith("KotlinMultiplatformExtension") != true) {
-              it.create("maven", MavenPublication::class.java) { publication ->
-                /**
-                 * Doc says to use afterEvaluate 🤷‍♂️
-                 * https://developer.android.com/build/publish-library/upload-library
-                 */
-                afterEvaluate {
-                  var component: SoftwareComponent? = components.findByName("java")
-                  if (component == null) {
-                    component = components.findByName("release")
-                  }
-                  check(component != null) {
-                    "No 'java' or 'release' component found"
-                  }
-                  publication.from(component)
+          publications { publications ->
+            pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
+              publications.create("maven", MavenPublication::class.java) { publication ->
+                publication.from(components.getByName("java"))
+              }
+            }
+            pluginManager.withPlugin("com.android.library") {
+              /**
+               * Doc says to use afterEvaluate 🤷‍♂️
+               * https://developer.android.com/build/publish-library/upload-library
+               */
+              afterEvaluate {
+                publications.create("maven", MavenPublication::class.java) { publication ->
+                  publication.from(components.findByName("release"))
                 }
               }
             }
