@@ -1,8 +1,10 @@
 package tapmoc.internal
 
 import com.android.build.api.dsl.CommonExtension
+import org.gradle.api.Action
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.plugins.AppliedPlugin
 
 private class AgpImpl(private val project: Project): Agp {
   override fun javaCompatibility(javaVersion: JavaVersion) {
@@ -19,21 +21,21 @@ private class AgpImpl(private val project: Project): Agp {
        */
     }
   }
-
-  override fun isAndroidJavaCompileTask(name: String): Boolean {
-    // See https://cs.android.com/android-studio/platform/tools/base/+/da94db5fa35cdf1d97a02e705bf99fa4bf4676d4:build-system/gradle-core/src/main/java/com/android/build/gradle/tasks/JavaCompile.kt;l=67
-    return Regex("compile.*JavaWithJavac").matches(name)
-  }
 }
 
 
 /**
- * Return null if AGP is not applied
+ * calls [block] if AGP is applied
  */
-internal fun Project.agp(): Agp? {
-  if (extensions.findByName("androidComponents") == null) {
-    return null
+internal fun Project.onAgp(block: (Agp) -> Unit) {
+  var hasAgp = false
+  val callback = Action<AppliedPlugin> {
+    if(!hasAgp)  {
+      hasAgp = true
+      block(AgpImpl(this@onAgp))
+    }
   }
-
-  return AgpImpl(project)
+  pluginManager.withPlugin("com.android.application", callback)
+  pluginManager.withPlugin("com.android.library", callback)
+  pluginManager.withPlugin("com.android.kotlin.multiplatform.library", callback)
 }

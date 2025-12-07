@@ -1,6 +1,5 @@
 plugins {
   id("com.gradleup.tapmoc")
-  id("java")
   id("check.publication")
 }
 
@@ -12,3 +11,6 @@ tapmoc {
 checkPublication {
   jvmTarget.set(11)
 }
+
+// Testing that we are robust to plugins being added after the fact
+pluginManager.apply("java")

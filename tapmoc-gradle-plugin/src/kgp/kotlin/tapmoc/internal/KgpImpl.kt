@@ -1,7 +1,9 @@
 package tapmoc.internal
 
 import java.lang.reflect.Method
+import org.gradle.api.Action
 import org.gradle.api.Project
+import org.gradle.api.plugins.AppliedPlugin
 import org.gradle.api.provider.ProviderFactory
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
@@ -11,6 +13,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.plugin.KotlinBaseApiPlugin
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
@@ -30,11 +34,6 @@ private fun compilerOptionsMethod(): Method? {
   }
 
   return method
-}
-
-
-fun isKmp(extension: Any): Boolean {
-  return extension is KotlinMultiplatformExtension
 }
 
 private class KgpImpl(extension: Any, private val providers: ProviderFactory, private val kgpVersion: String) : Kgp {
@@ -161,13 +160,24 @@ internal fun KotlinProjectExtension.forEachCompilerOptions(block: KotlinCommonCo
 }
 
 /**
- * Return null if KGP is not applied
+ * calls [block] if KGP is applied
  */
-internal fun Project.kgp(): Kgp? {
-  val extension = extensions.findByName("kotlin")
-  if (extension == null) {
-    return null
+internal fun Project.onKgp(block: (Kgp) -> Unit) {
+  // Guard against Java-only projects
+  try {
+    Class.forName("org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin")
+  } catch (_: ClassNotFoundException) {
+    return
   }
 
-  return KgpImpl(extension, providers, getKotlinPluginVersion())
+  var hasKgp = false
+  /**
+   *  See https://github.com/gradle/gradle/issues/34995
+   */
+  plugins.withType(KotlinBasePlugin::class.java).configureEach {
+    if(!hasKgp)  {
+      hasKgp = true
+      block(KgpImpl(extensions.getByName("kotlin"), providers, getKotlinPluginVersion()))
+    }
+  }
 }

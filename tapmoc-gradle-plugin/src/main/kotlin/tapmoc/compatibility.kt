@@ -1,24 +1,19 @@
 package tapmoc
 
-import tapmoc.internal.agp
+import tapmoc.internal.onAgp
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
-import tapmoc.internal.kgp
+import tapmoc.internal.onKgp
 
 fun Project.configureJavaCompatibility(
   javaVersion: Int,
 ) {
-  check(extensions.findByName("java") != null) {
-    "Tapmoc: cannot configure Java compatibility since the Java plugin is not applied."
-  }
-  val agp = project.agp()
-
   /**
    * Set --release for all JavaCompile tasks except the ones owned by AGP (if any).
    */
   tasks.withType(JavaCompile::class.java).configureEach {
-    if (agp?.isAndroidJavaCompileTask(it.name) != true) {
+    if (!isAndroidJavaCompileTask(it.name)) {
       it.options.release.set(javaVersion)
     }
   }
@@ -26,9 +21,13 @@ fun Project.configureJavaCompatibility(
   /**
    * Set the source and target compatibility for AGP (if any).
    */
-  agp?.javaCompatibility(javaVersion.toJavaVersion())
+  onAgp {
+    it.javaCompatibility(javaVersion.toJavaVersion())
+  }
 
-  project.kgp()?.javaCompatibility(javaVersion)
+  onKgp {
+    it.javaCompatibility(javaVersion)
+  }
 }
 
 
@@ -39,9 +38,20 @@ fun Project.configureKotlinCompatibility(
     "Tapmoc: cannot parse Kotlin version '$version'. Expected format is X.Y.Z."
   }
 
-  kgp()?.kotlinCompatibility(version)
+  onKgp {
+    it.kotlinCompatibility(version)
+  }
 }
 
 internal fun Int.toJavaVersion(): JavaVersion {
   return JavaVersion.forClassVersion(this + 44)
+}
+
+private fun isAndroidJavaCompileTask(name: String): Boolean {
+  /**
+   * TODO: this isn't the most typesafe but not sure how to do better
+   *
+   * See https://cs.android.com/android-studio/platform/tools/base/+/da94db5fa35cdf1d97a02e705bf99fa4bf4676d4:build-system/gradle-core/src/main/java/com/android/build/gradle/tasks/JavaCompile.kt;l=67
+   */
+  return Regex("compile.*JavaWithJavac").matches(name)
 }

@@ -18,6 +18,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.Delete
+import org.gradle.language.base.plugins.LifecycleBasePlugin
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.Opcodes
@@ -79,8 +80,10 @@ abstract class CheckPublicationExtension(project: Project) {
           it.dependsOn("publishAllPublicationsToTestRepository")
         }
 
-        tasks.named("check") {
-          it.dependsOn(checkPublication)
+        project.plugins.withType(LifecycleBasePlugin::class.java) {
+          project.tasks.named(LifecycleBasePlugin.CHECK_TASK_NAME).configure {
+            it.dependsOn(checkPublication)
+          }
         }
       }
     }
