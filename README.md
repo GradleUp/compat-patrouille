@@ -32,7 +32,7 @@ Configuring Java/Kotlin compatibility flags is a mundane task that comes with su
 Tapmoc handles all of that with just two simple functions!
 
 > [!NOTE]
-> Compatibility flags only work for JVM targets. [See below for more details](#kotlin-multiplatform-kmp). 
+> The KMP ecosystem is a lot less mature than the JVM ecosystem and [non-JVM targets do not support apiVersion/languageVersion](https://youtrack.jetbrains.com/issue/KT-66755/). Compatibility flags only work for JVM targets. 
  
 ### Usage
 
@@ -94,29 +94,6 @@ You can have tapmoc fail in such cases with `checkDependencies`:
 tapmoc {
   // Fail the build if any api dependency exposes incompatible Kotlin metadata, Kotlin stdlib or Java bytecode version.
   checkDependencies()
-}
-```
-
-### Kotlin multiplatform (KMP)
-
-The KMP ecosystem is a lot less mature than the JVM ecosystem.
-
-In particular:
-* [non-JVM targets do not support apiVersion/languageVersion](https://youtrack.jetbrains.com/issue/KT-66755/).
-* some targets (like wasmJs) require that the compile time `kotlin-stdlib` version matches the compiler version.
-
-Not only does that mean that tapmoc cannot configure compatibility flags for non-JVM targets, it also means tapmoc may downgrade some of your dependencies. 
-
-Because it relies on `coreLibrariesVersion` to configure the JVM stdlib version, some of your non-JVM libraries may be older than your compiler version, which may cause issues.
-
-If you require a newer version of a core library, you can upgrade it by adding it explicitly to your dependencies:
-
-```kotlin
-sourceSets.getByName("wasmJsTest")  {
-  dependencies {
-    // Upgrade the kotlin-test dependency for wasmJsTest
-    implementation("org.jetbrains.kotlin:kotlin-test:${getKotlinPluginVersion()}")
-  }
 }
 ```
 
