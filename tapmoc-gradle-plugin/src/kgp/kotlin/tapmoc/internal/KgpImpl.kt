@@ -103,8 +103,6 @@ private class KgpImpl(extension: Any, private val providers: ProviderFactory, pr
       }
     }
 
-    kotlinProjectExtension.coreLibrariesVersion = version
-
     /**
      * Wasm and JS require the latest kotlin stdlib
      *
@@ -115,21 +113,15 @@ private class KgpImpl(extension: Any, private val providers: ProviderFactory, pr
         .map { it.toBooleanStrictOrNull() != false }
         .getOrElse(true)
 
-    if (kotlinProjectExtension is KotlinMultiplatformExtension && isStdlibDefaultDependencyEnabled) {
-      kotlinProjectExtension.targets.configureEach { target ->
-        target.compilations.configureEach {
-          when (target.platformType) {
-            KotlinPlatformType.js,
-            KotlinPlatformType.wasm,
-              // do we need native here as well?
-              -> {
-              it.defaultSourceSet.dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib:${kgpVersion}")
-              }
-            }
-            else -> return@configureEach
-          }
-        }
+    if (isStdlibDefaultDependencyEnabled) {
+      /**
+       * Downgrade the JVM stdlib version to avoid leaking incompatible metadata
+       */
+      kotlinProjectExtension.sourceSets.findByName("main")?.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib:${version}")
+      }
+      kotlinProjectExtension.sourceSets.findByName("jvmMain")?.dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib:${version}")
       }
     }
   }
