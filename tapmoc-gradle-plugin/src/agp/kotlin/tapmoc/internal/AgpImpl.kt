@@ -38,5 +38,6 @@ internal fun Project.onAgp(block: (Agp) -> Unit) {
   pluginManager.withPlugin("com.android.application", callback)
   pluginManager.withPlugin("com.android.library", callback)
   pluginManager.withPlugin("com.android.test", callback)
+  pluginManager.withPlugin("com.android.dynamic-feature", callback)
   pluginManager.withPlugin("com.android.kotlin.multiplatform.library", callback)
 }
