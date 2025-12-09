@@ -1,12 +1,13 @@
+# 0.3.1
+_2025-12-09_
+
+
 # 0.3.0
 _2025-12-08_
 
-* [NEW] Add `checkDependencies()` as a shortcut for both `checkApiDependencies()` and `checkRuntimeDependencies()`. `checkDependencies()` also checks for the Java class files version (#58, #49, #37) 
-* [FIX] Make the plugin react to other plugins (#51, #58). The order in which plugins are applied should now be unimportant.
-* [FIX] Reorganize the dependency checking logic and only check the dependencies for JVM consumable configurations. Test dependencies are not checked anymore (#47).
-* [CHANGE] Checking the dependencies is now lenient. If no java/kotlin version is set, no check will be made and no error will be raised. (#53)
-* [CHANGE] Downgrade the JVM stdlib instead of setting `coreLibrariesVersion`. Setting `coreLibrariesVersion` had unfortunate effects in KMP projects and I hope this approach will be more robust (#49, #56).
-
+* [NEW] Add a specific error message to warn about `java-gradle-plugin` adding `gradleApi()` in the wrong configuration (#65)
+* [FIX] Support for `com.android.test` and `com.android.dynamic-feature` plugins (#62, #63)
+* [BREAKING] Remove `com.gradleup.compat.patrouille` legacy plugin. It was only provided as a helper for the rename (#64)
 
 # 0.2.0
 _2025-11-27_
