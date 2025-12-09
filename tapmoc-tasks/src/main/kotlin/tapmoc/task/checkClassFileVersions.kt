@@ -51,9 +51,14 @@ internal fun tapmocCheckClassFileVersions(
           if (classFileVersion > maxAllowedClassFileVersion) {
             val humanReadable = "class file version $classFileVersion (Java ${classFileVersion - 44})"
             val expectedHuman = "<= $maxAllowedClassFileVersion (Java $javaVersion)"
+            val extra = if (fileWithPath.file.name.startsWith("gradle-api")) {
+              "\nIf you are using the `java-gradle-plugin` plugin, see https://github.com/gradle/gradle/issues/35967 for more details and workarounds."
+            } else {
+              ""
+            }
             logger.logOrFail(
               warningAsError,
-              "${fileWithPath.file.path}:${entry.name} targets $humanReadable which is newer than supported $expectedHuman."
+              "${fileWithPath.file.path}:${entry.name} targets $humanReadable which is newer than supported $expectedHuman.$extra"
             )
           }
         }

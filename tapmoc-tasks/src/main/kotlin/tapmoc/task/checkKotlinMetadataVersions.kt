@@ -46,7 +46,13 @@ internal fun tapmocCheckKotlinMetadataVersions(
     fileWithPath.file.forEachModuleInfoFile { name, bytes ->
       val metadata = KotlinModuleMetadata.read(bytes)
       if (metadata.version > supportedVersion) {
-        logger.logOrFail(warningAsError, "${fileWithPath.file.path}:$name contains unsupported metadata ${metadata.version} (expected: $kotlinVersion).  Use `./gradlew dependencies to investigate the dependency tree.")
+        val extra = if (fileWithPath.file.name.startsWith("gradle-api")) {
+          "\nIf you are using the `java-gradle-plugin` plugin, see https://github.com/gradle/gradle/issues/35967 for more details and workarounds."
+        } else {
+          ""
+        }
+
+        logger.logOrFail(warningAsError, "${fileWithPath.file.path}:$name contains unsupported metadata ${metadata.version} (expected: $kotlinVersion).$extra\nUse `./gradlew dependencies to investigate the dependency tree.")
       }
     }
   }
