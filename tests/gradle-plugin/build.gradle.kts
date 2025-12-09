@@ -2,6 +2,7 @@ plugins {
   id("com.gradleup.tapmoc")
   `embedded-kotlin`
   id("check.publication")
+  id("java-gradle-plugin")
 }
 
 tapmoc {
